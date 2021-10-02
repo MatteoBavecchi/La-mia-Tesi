@@ -16,40 +16,32 @@ non compromette la stabilità degli altri.
 
 \subsection*{Vantaggi}
 \begin{itemize}
-    \item \textbf{Ottimizzare sviluppo di funzionalità:}
-Nell’approccio orizzontale quando si vuole sviluppare una nuova funzionalità ci si
- deve accordare tra vari team e fare molti incontri per discutere. Con i microfrontend,
+    \item \textbf{Ottimizzare lo sviluppo di funzionalità:}
+Nell’approccio orizzontale quando si vuole sviluppare una nuova funzionalità è necessario far convergere il 
+lavoro di più team. Con microfrontend,
   tutte le persone coinvolte nell’implementazione di una nuova funzionalità sono nello 
-  stesso team, e quindi è tutto più veloce ed efficiente. 
+  stesso team, rendendo il lavoro più veloce ed efficiente. 
     \item \textbf{Abbandono del frontend monolitico:}
-La maggior parte delle acrchitetture oggi non hanno il concetto di scalablità nel 
-frontend, ma per questo hanno un concetto monolitico.
-Si può pensare di dividere il backend e il frontend, oppure di rendere il backend 
-l’insieme di tanti microservizi, ma il frontend rimane unico.
 Con microfrontend le applicazioni, incluse il frontend, si dividono in sistemi verticali
- più piccoli. Ogni team controlla la sua piccola parte di frontend. Questo porta diversi
-  benefici, come l’isolamento dei rischi di fallimento, e maggiore predicibilità, in quanto
-   si ha pezzi più piccoli di sistema che non condividono molti stati con il resto dell’applicazione.
-    \item \textbf{Abilità nel cambiare:}
-Strumenti di sviluppo e framework evolvono continuamente. E’ essenziale per un team 
-essere in grado di adottare una nuova tecnologia quando questo ha senso. Ci sono esempi
- di aziende che hanno avuto bisogno di adottare strumenti diversi che hanno dovuto fare 
- delle transizioni epocali, alcune durate diversi anni. Come il caso di Github, che ha 
- impiegato molto tempo per eliminare le dipendenze da JQuery dal loro codice.
+ più piccoli. Ogni team controlla la sua piccola parte di frontend e di backend.
+    \item \textbf{Adottare diverse tecnologie:}
+Strumenti di sviluppo e framework evolvono continuamente. Ogni team deve essere in grado di scegliere
+le proprie tecnologie autonomamente. Ci sono alcune grandi aziende
+ come Github, che hanno
+ impiegato molto tempo per eliminare alcune dipendenze ormai obsolete dal loro codice ( nel caso di Github si trattava di una versione di JQuery).
   Con l’approccio microfrontend questi cambiamenti sono più rapidi e possono essere
    fatti modularmente.
 
 
 \item \textbf{Indipendenza:}
-I frammenti di ogni team sono autonomi, ovvero non hanno dipendenze condivise a runtime.
- Questo permette ad ogni team di introdurre funzionalità senza consultare altri.
+I progetti di ogni team sono autonomi, ovvero non hanno dipendenze condivise tra di loro.
+Questo come già detto precedentemente porta ad una grande autonomia.
 
 L’indipendenza però porta sicuramente a costi aggiuntivi. Si potrebbe pensare che sia
- più semplice quindi fare un unica applicazione di grandi dimensioni di cui ogni team
-  è responsabile di una parte diversa. Il problema sta nel fatto che la comunicazione 
-  tra i vari team è costosa e porta molti ritardi.
-Quindi si preferisce addirittura la ridondanza a favore di più autonomia e velocità di
- implementazioni.
+ più semplice quindi di sviluppare un unico progetto, e assegnare parti di questo a team diversi. 
+ Il problema sta nel fatto che la comunicazione tra i vari team è costosa e porta molti ritardi.
+In alcuni casi quindi è preferibile introdurre ridondanza nel codice dei vari team a favore di più autonomia e velocità di
+ implementazione.
 
 \end{itemize}
 
@@ -57,11 +49,10 @@ Quindi si preferisce addirittura la ridondanza a favore di più autonomia e velo
 \begin{itemize}
 
 \item \textbf{Ridondanza:}
-In informatica si è addestrati a ridurre al minimo ridondanze, che si parli di normalizzazione
- dei dati nei database o di estrarre parti di codici condivisi per farne una funzione.
+In informatica si è addestrati a ridurre al minimo ridondanze.
 Anche nel caso dello sviluppo frontend ci sono degli episodi nei quali la ridondanza può
  essere molto costosa: come ad esempio quando viene trovato un bug in una libreria e 
- questo viene risolto da un team, questo poi dovrà essere comunicato agli altri e questi 
+ questo viene risolto da un team, il fix dovrà essere comunicato agli altri e questi 
  dovranno provvedere a risolverlo autonomamente. Oppure quando si rende un processo più 
  veloce, anche in questo caso va comunicato agli altri team e questi dovranno apprendere
   la scoperta.
@@ -73,17 +64,14 @@ dipendenze tra team.
 
 
 \item \textbf{Inconsistenza:}
-I database usati nell’applicazione devono essere a disposizione di tutti i team. 
-Quindi quello che si fa di solito è replicare il database per tutti i team. 
-Tutte queste copie vengono aggiornate regolarmente per mantenere la consistenza e la coerenza.
- Ma ci potrebbero essere dei ritardi. Di solito si parla di millisecondi o al massimo secondi,
-  in casi peggiori invece l’attesa potrebbe essere più lunga.
-Questo è un altro compromesso che privilegia la robustezza alla coerenza garantita.
+ Potrebbero essere presenti delle basi di dati, necessarie all'applicazione web, che vengono lette e scritte
+ da più microfrontends.
+Per garantire la proprietà di indipendenza tra team è necessario replicare il database per tutti i progetti. 
+Tutte queste copie devono però essere sincronizzate tra loro regolarmente per mantenere la consistenza e la coerenza dei dati.
+Questo introduce dei ritardi, che potrebbero penalizzare l'esperienza utente.
 
 \item \textbf{Eterogeneità:}
 Potrebbe essere controverso avere la libertà di utilizzare tecnologie diverse tra i vati team.
  Ovviamente se ogni team usa una diversa tecnologia lo scambio di pareri o di competenze 
- tra team diventa più difficile
-Ma questo non deve essere un obbligo. Da un elenco di tecnologie collaudate un team si
- sentirà libero di scegliere quella più accettabile.
+ tra team diventa più difficile.
 \end{itemize}
