@@ -196,15 +196,54 @@ durante il runtime grazie a codice javascript.
 
 
 \subsection*{Comunicazione tra fragments}
-I fragment all'interno di una pagina possono aver bisogno di ricevere dalla pagina 
+I fragment possono aver bisogno di ricevere dalla pagina 
 ospitante delle informazioni di contesto, come ad esempio la lingua, 
 la regione geografica, o il nome dell'utente recuperata da un database.
 Gli attributi dei custom element possono fungere da mezzo di comunicazione per inviare
 informazioni dalla pagina al fragment.
-I
-\subsubsection*{Diretta}
-\subsubsection*{Tramite il padre}
-\subsubsection*{Event-bus}
+I custom elements, con i quali sono implementati gli web components, forniscono agli sviluppatori 
+una serie di metodi che interessano momenti del loro ciclo di vita:
+\begin{itemize}
+    \item \textbf{connectedCallback}: invocato quando il custom element viene inserito nel DOM della pagina 
+    \item \textbf{disconnectedCallback}: invocato quando il custom element viene rimosso dal DOM
+    \item \textbf{adoptedCallback}: invocato quando l'elemento viene spostato da un documento ad un altro
+    \item \textbf{attributeChangedCallback}: invocato quando un qualsiasi attributo del documento cambia
+\end{itemize}
+
+Si può quindi utilizzare il metodo \emph{attributeChangedCallback} per far reagire il fragment in risposta ad un
+attributo cambiato.
+
+\linebreak
+
+Per quanto riguarda la comunicazione da un fragment alla pagina, è possibile utilizzare 
+l'API nativa \textbf{CustomEvents}, disponibile in tutti i moderni browsers.
+Permette di emettere eventi personalizzati allo stesso modo di come funzionano gli eventi standard \emph{click} o \emph{change}.
+
+Per far si che il colloquio vada a buon fine, il team che gestisce il fragment deve comunicare a quello che gestisce la pagina
+il nome dell'evento.
+
+\pagebreak
+
+Analizziamo adesso le diverse strategie per far comunicare due fragment ospitati sulla stessa pagina:
+
+\begin{itemize}
+    \item \textbf{Comunicazione diretta}: consiste nel chiamare direttamente il metodo del fragment
+    interessato, secondo il principio che qualsiasi fragment ha accesso all'intero DOM della pagina.
+    Questo metodo è altamente sconsigliato, perchè introduce un \textbf{forte accoppiamento}
+    \item \textbf{comunicazione tramite pagina ospitante}: si usa la pagina ospitante come tramite del messaggio,
+    utilizzando le tecniche prima viste, si emette un evento dal fragment A, si riceve nella pagina, e si inoltra ad un attributo 
+    del fragment B.
+    \item \textbf{Broadcast Channel API}: la Broadcast channel API permette la comunicazione 
+    tra elementi del browser della stessa \emph{origin}, ovvero con hostname, e porta uguali. 
+    Si basa sul meccanismo publish/subscribe.
+    Vengono instaurati dei canali nei quali vengono pubblicati messaggi (\emph{publish}), 
+    che riceveranno solo i fragment che si sottoscrivono a tale canale(\emph{subscribe}).
+    Questa soluzione riduce al minimo l'accoppiamento tra i vari fragments.
+    Broadcast channel API verrà approfondito successivamente.
+\end{itemize}
+
+E' importante che le comunicazioni tra i fragemnt siano minime e che interessino dati semplici, in quanto
+un eccessivo accoppiamento tra due oggetti può significare un inesatto confine tra due team.
 
 
 \subsection*{Application Shell}

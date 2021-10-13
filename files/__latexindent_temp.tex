@@ -40,45 +40,205 @@ Il problema principale però è che l’Ajax request è asincrona,
 questo porta a dei ritardi nel caricamento completo della pagina.
 
 \subsection*{Utilizzo del Routing Server-side}
+Il routing è un elemento fondamentale dell’architettura microfrontend.
 L’elemento che stiamo introducendo viene chiamato frontend proxy, cioè un web server che effettua routing,
  che intercetta le richieste con un certo percorso e le instrada al giusto fragment. In questo modo anche se
   i progetti dei vari team risiedono in spazi diversi, l’utente vedrà un URL omogeneo e non si accorgerà delle origini dei fragment.
 Il funzionamento consiste in questi passaggi:
 \begin{itemize}
-    \item L’utente apre l’ URL “/foo/bar”. La richiesta raggiunge il frontend proxy
+    \item Il client apre l’ URL “/foo/bar”. La richiesta raggiunge il frontend proxy
     \item Il frontend proxy confronta il path “/foo/bar/“8 con la propria routing table, con corrispondenza in prossimità della regola i
-    \item  Il frontend proxy passa la richiesta al fragment associato
+    \item Il frontend proxy passa la richiesta al fragment associato
     \item Il fragment genera una risposta e la ritorna al frontdend proxy
-    \item La risposta arriva infine all’utente
+    \item La risposta arriva infine al client
 \end{itemize}
 
-
-
-
-
-Il routing è un elemento centrale dell’architettura micro frontend, quindi è vitale investirci in qualità e testing.
-Zalando, che applica l’architettura micro frontend al suo sito e-commerce, ha più di 800,000 Route definitions.
 
 \pagebreak
 
 \section*{Composizione Server-side}
+Si suppone di lavorare ad un progetto microfrontend incentrato principalmente su contenuti e informazioni, senza particolari applicativi logici al suo interno.
+Un esempio di sito incentrato sulle informazioni( anche detto \emph{content-centric}) è Wikipedia, le sue caratteristiche principali sono:
+\begin{enumerate}
+    \item Tempi brevi di caricamento delle pagine
+    \item Ottimizzazione per motori di ricerca
+    \item Assenza di particolari contenuto logici basati sull'interazione con l'utente
+\end{enumerate}
 
-\subsection*{Server Side Integration}
+Si introduce quindi la \textbf{composizione server-side}, che rispetta le richieste di un sito content-centric come Wikipedia.
+
+La composizione dei fragment viene eseguita da un servizio che risiede nel server web, il client quindi riceve la pagina completa.
+
+Come nel caso degli iframes, i team che producono i fragments devono fornire al team che detiene la pagina ospitante l'URL del loro codice di markup HTML.
+
+Il team della pagina ospitante userà delle direttive 
+per richiedere al server di aggiungere il codice di markup degli altri team in un preciso posto della schermata.
+
+Un esempio di servizio di composizione è la funzione \textbf{SSI} (Server-Side Includes) di \textbf{Nginx}:
+
+\subsection*{Server-Side Includes}
+
+Nginx contiene il modulo \emph{ngx-http-ssi-module} che processa i comandi SSI.
+ I comandi SSI sono istruzioni
+inserite nelle pagine HTML della pagina ospitante. Un'istruzione SSI appare nella seguente sintassi:
+
+   \begin{center}
+    \verb|<!--#include virtual="url/da/includere -->|
+   \end{center}
+
+Avviene quindi questo:
+
+\begin{enumerate}
+    \item Il client effettua la richiesta della pagina
+    \item Il webserver accetta la richiesta e verifica la presenza di eventuali direttive SSI
+    \item Le direttive trovate vengono sostituite con il codice di markup reperibile all'url dell'attributo "virtual"
+    \item Il client riceve la pagina completa
+\end{enumerate}
+
+Si noti che le prestazioni di composizione sono nettamente aumentate rispetto alla composizione con iframes, 
+in quanto il client riceve la pagina già completa, effettuando un solo handshake HTML, indipendentemente dal numero
+di fragment ospitati nella pagina. Inoltre i motori di ricerca possono profilare anche il contenuto dei fragments
 
 \subsubsection*{Modalità di caricamento dei fragments}
+Al contrario della soluzione con iframes, lo scorretto caricamento di un fragment può rallentare o addirittura bloccare 
+il caricamento dell'intera pagina. Il webserver infatti prima di restituire la pagina aspetta di avere tutti  i suoi componenti.
+La proprietà di Nginx chiamata \emph{proxy read timeout} permette di fissare un tempo massimo per il quale il webserver 
+può aspettare un fragment.
 
-\subsection*{Alternative a SSI}
-\subsubsection*{Zalando Tailor}
-\subsubsection*{Podium}
+Nel caso in cui il webserver non riesce a caricare un fragment esiste il comando SSI \textbf{stub}.
+Si utilizza la direttiva \emph{block} che sostiuirà il fragment caricato senza successo con del codice HTML di riserva.
+Il nuovo \emph{include} contiene il nuovo attributo stub, che ha il riferimento al block corrispondente, dovesse non andare
+a buon fine la richiesta.
+
+
+\verb|<!--# block name="fallback" -->|\linebreak
+\verb|<a href="/page"> Link</a>|\linebreak
+\verb|<!--# endblock -->|\linebreak
+\verb| <!--#include|\linebreak
+\verb|virtual="/link/to/page"|\linebreak
+\verb| stub="fallback" -->|\linebreak
+
+\linebreak
+Quando Nginx deve scaricare più fragments, effettua i caricamenti in parallelo.
+Quando l'ultimo fragment viene scaricato,la pagina viene composta e inviata al client.
+Il tempo di risposta dell'intera pagina è chiamato \emph{time to first byte} (TTFB) ed è definito 
+come il tempo necessario per generare l’HTML della pagina, più il tempo di caricamento del fragment più lento.
+
+E' possibile anche annidare fragments, ma non è consigliato, in quanto si 
+interrompe la parallelizzazione dei caricamenti e si rallenta la composizione della pagina.
+
+\subsubsection*{Caricamento differito}
+In genere si ottimizza il caricamento della pagina effettuando una composizione server-side per la sua parte principale,
+ la cosiddetta \emph{viewport}, le componenti secondarie invece è preferibile comporle lato client, con 
+delle chiamate Ajax, utilizzando la metodologia prima descritta. Questa tecnica si chiama caricamento differito, o \textbf{lazy loading}.
+
+\subsubsection*{Alternative a SSI}
+Il webserver con SSI, invia la pagina al client solo quando questa è stata completamente composta.
+Il servizio di composizione \textbf{ESI} presente nel webserver Vernish invece attua l'\emph{invio parziale},
+ ovvero inizia a inviare parti di pagina anche prima che questa venga completamente assemblata.
+
+Esistono altre soluzioni, come quella sviluppata dalla società di fashion e-commerce Zalando, chimata Zalando Tailor.
+L'azienda migrò infatti il loro microfrontend dall'approccio monolitico a quello microfrontend, utilizzando una composizione
+server-side. Per via dell'entità del sito web, il team Zalando ha avviato il progetto Tailor, che ha poi portato ad un rilascio 
+ufficiale con licenza \textbf{TODOlibera}. Tailor consiste in una libreria Node.js, reperibile nel pacchetto NPM \emph{node-tailor}.
+
+Tailor riesce ad avere prestazioni migliori rispetto all'invio parziale, facendo in modo di iniziare a inviare parti di pagina al client,
+ancora prima che il server abbia finito di scaricare l'intera pagina.
 
 \pagebreak
 \section*{Composizione Client-side}
+Ci sono dei siti web che non hanno principalmente uno scopo informativo, ma funzionale, ovvero rispondono all'input dell'utente
+e rilasciano un output influenzato da tale input. Questi siti web vengono detti \emph{behavior-centric}, cioè 
+incentrati su un comportamento o funzionalità.
+Il modo più indicato per chiamarli non è siti web ma web apps, applicazioni web.
+Una web app è ad esempio Google Meet, raggiungibile dall'URL https://meet.google.com.
+Questo non è un sito che veicola principalmente informazioni, ma bensì offre un servizio all'utente: permette a due o più persone di 
+interloquire, tramite scambio di segnali audiovisivi. Per fare in modo di reagire
+all input degli utenti, le webapp cambiano il loro codice HTML nel browser, e inoltre permettono 
+di cambiare pagina, e quindi anche URL, senza effettuare alcuna richiesta al webserver.
+Sono disponibili agli sviluppatori numerosi framework per realizzare webapps, come React.js, Angular e Vue.js.
+Seguendo un approccio monolitico dovremmo scegliere uno di questi framework ed essere costretti a farlo utilizzare
+a tutti i team che lavorano al progetto. Al contrario, con l'approccio microfrontend, si da libertà ad ogni team
+di scegliere autonomamente la soluzione migliore e di mantenerla aggiornata.
+Grazie agli \textbf{web components}, i team possono realizzare dei fragments con qualsiasi tecnologia a loro disposizione e 
+farli operare con il resto della pagina.
+
+
+
+\subsection*{Web Components}
+Gli web components consentono di creare nuovi elementi HTML personalizzati ( Custom Elements), riutilizzabili e incapsulati
+da utilizzare in siti e web app \cite{webcomponents}.
+
+Custom Elements è un insieme di API Javascript che consentono di definire elementi HTML personalizzati, che includono istruzioni CSS e JS.
+Ogni custom element è dichiarato nell' oggetto \emph{CustomElementRegistry}.
+\linebreak
+
+All'interno di un web component può essere incapsulato elementi di stile e componenti logiche, senza influenzare
+la parte restante del DOM (Document Object Model), questo grazie alla \emph{shadow DOM}:
+\subsubsection*{Shadow DOM}
+Sappiamo che il DOM (Document Object Model) è un albero di oggetti creato alla fine del caricamento di ogni pagina web, che 
+permette di accedere dinamicamente e aggiornare il contenuto, la struttura e lo stile di un documento.\cite{dom}
+Possiamo annettere alla struttura del DOM, un numero arbitrario di \emph{shadow trees}, 
+o alberi ombra, questi con i loro elementi e il proprio design hanno una radice, detta  \emph{shadow root}.
+La shadow root è sempre annessa ad un \emph{shadow host} che risiede nel DOM o in un altro shadow tree.
+
+Grazie alla Shadow DOM è possibile gestire singoli elementi di un progetto web in modo indipendente rispetto al resto del sito.
+Dentro la shadow DOM è possibile gestire contenuti in maniera del tutto indipendente rispetto alle istruzioni di design o dalle strutture
+valide globalmente nel resto del progetto.
+
+Questo aumenta la robustezza del microfrontend, garantendo isolamento.
+\linebreak
+\linebreak
+Un altro elemento importante che sta alla base dei web components è il concetto di \textbf{template HTML}: 
+un modo per creare codice HTML non ancora visualizzato sulla pagina, che può essere istanziato una o più volte 
+durante il runtime grazie a codice javascript.
+
+
 
 \subsection*{Comunicazione tra fragments}
+I fragment possono aver bisogno di ricevere dalla pagina 
+ospitante delle informazioni di contesto, come ad esempio la lingua, 
+la regione geografica, o il nome dell'utente recuperata da un database.
+Gli attributi dei custom element possono fungere da mezzo di comunicazione per inviare
+informazioni dalla pagina al fragment.
+I custom elements, con i quali sono implementati gli web components, forniscono agli sviluppatori 
+una serie di metodi che interessano momenti del loro ciclo di vita:
+\begin{itemize}
+    \item \textbf{connectedCallback}: invocato quando il custom element viene inserito nel DOM della pagina 
+    \item \textbf{disconnectedCallback}: invocato quando il custom element viene rimosso dal DOM
+    \item \textbf{adoptedCallback}: invocato quando l'elemento viene spostato da un documento ad un altro
+    \item \textbf{attributeChangedCallback}: invocato quando un qualsiasi attributo del documento cambia
+\end{itemize}
 
-\subsubsection*{Diretta}
-\subsubsection*{Tramite il padre}
-\subsubsection*{Event-bus}
+Si può quindi utilizzare il metodo \emph{attributeChangedCallback} per far reagire il fragment in risposta ad un
+attributo cambiato.
+
+\linebreak
+
+Per quanto riguarda la comunicazione da un fragment alla pagina, è possibile utilizzare 
+l'API nativa \textbf{CustomEvents}, disponibile in tutti i moderni browsers.
+Permette di emettere eventi personalizzati allo stesso modo di come funzionano gli eventi standard \emph{click} o \emph{change}.
+
+Per far si che il colloquio vada a buon fine, il team che gestisce il fragment deve comunicare a quello che gestisce la pagina
+il nome dell'evento.
+
+\pagebreak
+
+Analizziamo adesso le diverse strategie per far comunicare due fragment ospitati sulla stessa pagina:
+
+\begin{itemize}
+    \item \textbf{Comunicazione diretta}: consiste nel chiamare direttamente il metodo del fragment
+    interessato, secondo il principio che qualsiasi fragment ha accesso all'intero DOM della pagina.
+    Questo metodo è altamente sconsigliato, perchè introduce un \textbf{forte accoppiamento}
+    \item \textbf{comunicazione tramite pagina ospitante}: si usa la pagina ospitante come tramite del messaggio,
+    utilizzando le tecniche prima viste, si emette un evento dal fragment A, si riceve nella pagina, e si inoltra ad un attributo 
+    del fragment B.
+    \item \textbf{Broadcast Channel API}: la Broadcast channel API permette la comunicazione 
+    tra elementi del browser della stessa \emph{origin}, ovvero con hostname, e porta uguali. 
+    Si basa sul meccanismo publish/subscribe.
+    Vengono instaurati dei canali nei quali vengono pubblicati messaggi ( \emph{publish}), 
+    che riceveranno solo i fragment che si sottoscrivono a tale canale( \emph{subscribe}).
+\end{itemize}
 
 
 \subsection*{Application Shell}
