@@ -245,12 +245,50 @@ Analizziamo adesso le diverse strategie per far comunicare due fragment ospitati
 E' importante che le comunicazioni tra i fragemnt siano minime e che interessino dati semplici, in quanto
 un eccessivo accoppiamento tra due oggetti può significare un inesatto confine tra due team.
 
+\pagebreak
+\subsection*{Routing Client-Side }
+La maggior parte dei framework client come Angular o React hanno al loro interno un servizio che permette di
+effettuare routing, attuando una navigazione tra differenti pagine senza fare una completa richiesta al server.
+In questo modo le webapp con un routing lato client appaiono all'utente più reattive e offrono una migliore esperienza.
+Queste webapp vengono chiamate Single Page Applications, o SPA.
 
-\subsection*{Application Shell}
+Si deve innanzi tutto distinguere due tipi di navigazione:
+\begin{itemize}
+    \item \textbf{Hard navigation}: il browser durante la navigazione carica completamente il codice HTML dal server
+    \item \textbf{Soft navigation}: la transizione avviene lato client, in questo modo non si richiede la pagina completa,
+     ma solo alcuni dati, che vengono caricati dal server tramite una API Javascript
+\end{itemize}
+
+Di conseguenza i team possono scegliere autonomamente il tipo di navigazione.
+Si può trovare una webapp con una hard navigation in tutte le pagine, anche in quelle interne di un team,
+oppure quella che viene chiamata \emph{linked SPA}, con hard navigation per passare da una pagina posseduta da un team ad un altro
+e soft navigation per le pagine dello stesso team.
+
+In entrambe queste soluzioni l'unico dato che deve essere condiviso tra i team, il cosiddetto contratto, consiste 
+unicamente nell' URL delle pagine. Questo garantisce una grande autonomia tra team e un alto disaccoppiamento.
+
+Il passo successivo è quello di rendere l'esperienza utente più fluida, introducendo una soft navigation anche tra pagine di team 
+diversi. Per fare ciò è necessario un infrastruttura condivisa, chiamata \emph{Application Shell}.
 
 
+\subsubsection*{Application Shell}
+L' Application Shell, o App Shell, è un app che sta alla base di tutti i microfrontend. Questa si occupa di instradare le
+richieste e di visualizzare nella pagina HTML il microfrontend giusto. Di solito risiede nella pagina principale( index.html) ed essendo
+condivisa con tutti gli altri elementi deve essere mantenuta il più semplice possibile.
+Di solito viene incluso nell'app shell le informazioni di contesto o di autenticazione, utili a tutti i microfrontend.
+
+Un team sarà responsabile della sua manutenzione e dovrà essere a conoscenza del nome dei custom element con i quali gli altri team forniscono
+le loro web app.
+Inoltre l'app shell, per instradare correttamente tutti gli indirizzi, deve essere a conoscenza degli url di tutte le pagine di ogni team.
+Questo obbgliga i team a notificare l'app shell di qualsiasi aggiunta o rimozione di pagine nel loro progetto.
+
+Con il \textbf{routing a due livelli} si porta l'app shell in una posizione più neutrale e si diminuisce l'accoppiamento tra questa e gli altri microfrontend.
 \subsubsection*{Routing a due livelli}
+Risolviamo il problema facendo instradare le pagine all'app shell soltanto secondo il team di provenienza.
+Ogni team avrà un router interno che assegnerà all'url in arrivo la pagina corrispondente.
+Per identificare chiaramente il team, si utilizza un prefisso nell'URL.
 
+In questo modo l'app shell viene cambiata solo se si aggiunge un nuovo team o si vuole cambiare il nome dei prefissi.
 
 
 
