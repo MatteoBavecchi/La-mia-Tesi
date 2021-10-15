@@ -1,7 +1,27 @@
 \babel@toc {italian}{}
 \babel@toc {italian}{}
-\contentsline {chapter}{Ringraziamenti}{ii}{chapter*.2}%
+\contentsline {chapter}{Ringraziamenti}{iii}{chapter*.2}%
 \contentsline {chapter}{Introduzione}{i}{chapter*.3}%
 \contentsline {chapter}{\numberline {1}Microfrontend}{1}{chapter.1}%
+\contentsline {subsection}{\numberline {1.0.1}Vantaggi}{1}{subsection.1.0.1}%
+\contentsline {subsection}{\numberline {1.0.2}Svantaggi}{2}{subsection.1.0.2}%
 \contentsline {chapter}{\numberline {2}Collegare i microfrontends}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Collegamento tra pagine con links}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Composizione tramite iframes}{5}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Composizione con Ajax}{5}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Utilizzo del Routing Server-side}{6}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Composizione Server-side}{7}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Server-Side Includes}{7}{subsection.2.3.1}%
+\contentsline {subsubsection}{Modalità di caricamento dei fragments}{8}{section*.4}%
+\contentsline {subsubsection}{Caricamento differito}{9}{section*.5}%
+\contentsline {subsubsection}{Alternative a SSI}{10}{section*.6}%
+\contentsline {section}{\numberline {2.4}Composizione Client-side}{11}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Web Components}{11}{subsection.2.4.1}%
+\contentsline {subsubsection}{Shadow DOM}{12}{section*.7}%
+\contentsline {subsection}{\numberline {2.4.2}Comunicazione tra fragments}{13}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Routing Client-Side }{15}{subsection.2.4.3}%
+\contentsline {subsubsection}{Application Shell}{16}{section*.8}%
+\contentsline {subsubsection}{Routing a due livelli}{16}{section*.9}%
+\contentsline {section}{\numberline {2.5}Universal Rendering}{17}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Conclusioni}{19}{chapter.3}%
+\contentsline {chapter}{Bibliografia}{20}{chapter.3}%

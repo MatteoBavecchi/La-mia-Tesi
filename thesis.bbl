@@ -1,0 +1,35 @@
+\begin{thebibliography}{1}
+
+\bibitem{ssr}
+Michael Geers.
+\newblock {\em Microfrontends in action}.
+\newblock Manning, 2020.
+
+\bibitem{angularUniversal}
+Google.
+\newblock {Server-side rendering (SSR) with Angular Universal}.
+\newblock \url{https://angular.io/guide/universal}, 2021.
+\newblock [Online; accessed 15-October-2021].
+
+\bibitem{mozillaiframe}
+Ingo Lütkebohle.
+\newblock {BWorld Robot Control Software}.
+\newblock
+  \url{http://aiweb.techfak.uni-bielefeld.de/content/bworld-robot-control-software/},
+  2008.
+\newblock [Online; accessed 19-July-2008].
+
+\bibitem{dom}
+Mozilla.
+\newblock {DOM}.
+\newblock \url{https://www.w3schools.com/js/js_htmldom.asp}, 2021.
+\newblock [Online; accessed 10-October-2021].
+
+\bibitem{webcomponents}
+Mozilla.
+\newblock {Web Components}.
+\newblock \url{https://developer.mozilla.org/en-US/docs/Web/Web_Components},
+  2021.
+\newblock [Online; accessed 10-October-2021].
+
+\end{thebibliography}

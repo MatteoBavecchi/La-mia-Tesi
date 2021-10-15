@@ -3,7 +3,7 @@ Per far convivere i progetti realizzati dai vari team esistono varie metodologie
  presuppone che i team, nella loro autonomia, debbano comunque scambiarsi un minimo di informazioni e di vincoli
 che servono alla corretta integrazione delle app web, chiamiamo questo insieme di dati \emph{contratto tra team}.
 
-\section*{Collegamento tra pagine con links}
+\section{Collegamento tra pagine con links}
 La soluzione più semplice è quella del collegamento tra pagine con link URL: in questo modo il contratto consiste negli indirizzi delle pagine,
 che i team dovranno scambiarsi tra di loro.
 Questa soluzione è quella che rende i team il più autonomi e disaccoppiati possibile, inoltre
@@ -16,7 +16,7 @@ Questa soluzione viene usata quando è richiesta una forte robustezza, oppure qu
 i microfrontends in una app legacy già esistente.
 
 
-\section*{Composizione tramite iframes}
+\section{Composizione tramite iframes}
 L' iframe è un elemento HTML che permette di incorporare un'altra pagina HTML all'interno di quella corrente. \cite{mozillaiframe}
 
 Questo elemento può essere usato per comporre fragments provenienti da teams differenti, visualizzandoli su un'unica
@@ -29,7 +29,7 @@ Un grande svantaggio dell’uso degli iframes è la loro incompatibilità con i 
 Infatti le informazioni che vediamo nella pagina non sono in unico file HTML, di conseguenza il motore di ricerca non profila le informazioni 
 contenute negli iframes.
 
-\subsection*{Composizione con Ajax}
+\subsection{Composizione con Ajax}
 Un modo per superare il problema dei motori di ricerca ai quali sono affetti gli iframes è quello di 
 caricare i file HTML con Ajax.
 
@@ -39,7 +39,7 @@ team, con l'ausilio di un codice javascript, che utilizza la funzione fetch().
 Il problema principale però è che l’Ajax request è asincrona, 
 questo porta a dei ritardi nel caricamento completo della pagina.
 
-\subsection*{Utilizzo del Routing Server-side}
+\subsection{Utilizzo del Routing Server-side}
 Il routing è un elemento fondamentale dell’architettura microfrontend.
 L’elemento che stiamo introducendo viene chiamato frontend proxy, cioè un web server che effettua routing,
  che intercetta le richieste con un certo percorso e le instrada al giusto fragment. In questo modo anche se
@@ -56,7 +56,7 @@ Il funzionamento consiste in questi passaggi:
 
 \pagebreak
 
-\section*{Composizione Server-side}
+\section{Composizione Server-side}
 Si suppone di lavorare ad un progetto microfrontend incentrato principalmente su contenuti e informazioni, senza particolari applicativi logici al suo interno.
 Un esempio di sito incentrato sulle informazioni( anche detto \emph{content-centric}) è Wikipedia, le sue caratteristiche principali sono:
 \begin{enumerate}
@@ -76,7 +76,7 @@ per richiedere al server di aggiungere il codice di markup degli altri team in u
 
 Un esempio di servizio di composizione è la funzione \textbf{SSI} (Server-Side Includes) di \textbf{Nginx}:
 
-\subsection*{Server-Side Includes}
+\subsection{Server-Side Includes}
 
 Nginx contiene il modulo \emph{ngx-http-ssi-module} che processa i comandi SSI.
  I comandi SSI sono istruzioni
@@ -99,7 +99,7 @@ Si noti che le prestazioni di composizione sono nettamente aumentate rispetto al
 in quanto il client riceve la pagina già completa, effettuando un solo handshake HTML, indipendentemente dal numero
 di fragment ospitati nella pagina. Inoltre i motori di ricerca possono profilare anche il contenuto dei fragments
 
-\subsubsection*{Modalità di caricamento dei fragments}
+\subsubsection{Modalità di caricamento dei fragments}
 Al contrario della soluzione con iframes, lo scorretto caricamento di un fragment può rallentare o addirittura bloccare 
 il caricamento dell'intera pagina. Il webserver infatti prima di restituire la pagina aspetta di avere tutti  i suoi componenti.
 La proprietà di Nginx chiamata \emph{proxy read timeout} permette di fissare un tempo massimo per il quale il webserver 
@@ -118,7 +118,7 @@ a buon fine la richiesta.
 \verb|virtual="/link/to/page"|\linebreak
 \verb| stub="fallback" -->|\linebreak
 
-\linebreak
+
 Quando Nginx deve scaricare più fragments, effettua i caricamenti in parallelo.
 Quando l'ultimo fragment viene scaricato,la pagina viene composta e inviata al client.
 Il tempo di risposta dell'intera pagina è chiamato \emph{time to first byte} (TTFB) ed è definito 
@@ -127,12 +127,12 @@ come il tempo necessario per generare l’HTML della pagina, più il tempo di ca
 E' possibile anche annidare fragments, ma non è consigliato, in quanto si 
 interrompe la parallelizzazione dei caricamenti e si rallenta la composizione della pagina.
 
-\subsubsection*{Caricamento differito}
+\subsubsection{Caricamento differito}
 In genere si ottimizza il caricamento della pagina effettuando una composizione server-side per la sua parte principale,
  la cosiddetta \emph{viewport}, le componenti secondarie invece è preferibile comporle lato client, con 
 delle chiamate Ajax, utilizzando la metodologia prima descritta. Questa tecnica si chiama caricamento differito, o \textbf{lazy loading}.
 
-\subsubsection*{Alternative a SSI}
+\subsubsection{Alternative a SSI}
 Il webserver con SSI, invia la pagina al client solo quando questa è stata completamente composta.
 Il servizio di composizione \textbf{ESI} presente nel webserver Vernish invece attua l'\emph{invio parziale},
  ovvero inizia a inviare parti di pagina anche prima che questa venga completamente assemblata.
@@ -146,7 +146,7 @@ Tailor riesce ad avere prestazioni migliori rispetto all'invio parziale, facendo
 ancora prima che il server abbia finito di scaricare l'intera pagina.
 
 \pagebreak
-\section*{Composizione Client-side}
+\section{Composizione Client-side}
 Ci sono dei siti web che non hanno principalmente uno scopo informativo, ma funzionale, ovvero rispondono all'input dell'utente
 e rilasciano un output influenzato da tale input. Questi siti web vengono detti \emph{behavior-centric}, cioè 
 incentrati su un comportamento o funzionalità.
@@ -165,7 +165,7 @@ farli operare con il resto della pagina.
 
 
 
-\subsection*{Web Components}
+\subsection{Web Components}
 Gli web components consentono di creare nuovi elementi HTML personalizzati ( Custom Elements), riutilizzabili e incapsulati
 da utilizzare in siti e web app \cite{webcomponents}.
 
@@ -175,7 +175,7 @@ Ogni custom element è dichiarato nell' oggetto \emph{CustomElementRegistry}.
 
 All'interno di un web component può essere incapsulato elementi di stile e componenti logiche, senza influenzare
 la parte restante del DOM (Document Object Model), questo grazie alla \emph{shadow DOM}:
-\subsubsection*{Shadow DOM}
+\subsubsection{Shadow DOM}
 Sappiamo che il DOM (Document Object Model) è un albero di oggetti creato alla fine del caricamento di ogni pagina web, che 
 permette di accedere dinamicamente e aggiornare il contenuto, la struttura e lo stile di un documento.\cite{dom}
 Possiamo annettere alla struttura del DOM, un numero arbitrario di \emph{shadow trees}, 
@@ -195,7 +195,7 @@ durante il runtime grazie a codice javascript.
 
 
 
-\subsection*{Comunicazione tra fragments}
+\subsection{Comunicazione tra fragments}
 I fragment possono aver bisogno di ricevere dalla pagina 
 ospitante delle informazioni di contesto, come ad esempio la lingua, 
 la regione geografica, o il nome dell'utente recuperata da un database.
@@ -213,7 +213,6 @@ una serie di metodi che interessano momenti del loro ciclo di vita:
 Si può quindi utilizzare il metodo \emph{attributeChangedCallback} per far reagire il fragment in risposta ad un
 attributo cambiato.
 
-\linebreak
 
 Per quanto riguarda la comunicazione da un fragment alla pagina, è possibile utilizzare 
 l'API nativa \textbf{CustomEvents}, disponibile in tutti i moderni browsers.
@@ -246,7 +245,7 @@ E' importante che le comunicazioni tra i fragemnt siano minime e che interessino
 un eccessivo accoppiamento tra due oggetti può significare un inesatto confine tra due team.
 
 \pagebreak
-\subsection*{Routing Client-Side }
+\subsection{Routing Client-Side }
 La maggior parte dei framework client come Angular o React hanno al loro interno un servizio che permette di
 effettuare routing, attuando una navigazione tra differenti pagine senza fare una completa richiesta al server.
 In questo modo le webapp con un routing lato client appaiono all'utente più reattive e offrono una migliore esperienza.
@@ -271,7 +270,7 @@ Il passo successivo è quello di rendere l'esperienza utente più fluida, introd
 diversi. Per fare ciò è necessario un infrastruttura condivisa, chiamata \emph{Application Shell}.
 
 
-\subsubsection*{Application Shell}
+\subsubsection{Application Shell}
 L' Application Shell, o App Shell, è un app che sta alla base di tutti i microfrontend. Questa si occupa di instradare le
 richieste e di visualizzare nella pagina HTML il microfrontend giusto. Di solito risiede nella pagina principale( index.html) ed essendo
 condivisa con tutti gli altri elementi deve essere mantenuta il più semplice possibile.
@@ -283,7 +282,7 @@ Inoltre l'app shell, per instradare correttamente tutti gli indirizzi, deve esse
 Questo obbgliga i team a notificare l'app shell di qualsiasi aggiunta o rimozione di pagine nel loro progetto.
 
 Con il \textbf{routing a due livelli} si porta l'app shell in una posizione più neutrale e si diminuisce l'accoppiamento tra questa e gli altri microfrontend.
-\subsubsection*{Routing a due livelli}
+\subsubsection{Routing a due livelli}
 Risolviamo il problema facendo instradare le pagine all'app shell soltanto secondo il team di provenienza.
 Ogni team avrà un router interno che assegnerà all'url in arrivo la pagina corrispondente.
 Per identificare chiaramente il team, si utilizza un prefisso nell'URL.
@@ -293,7 +292,7 @@ In questo modo l'app shell viene cambiata solo se si aggiunge un nuovo team o si
 
 
 \pagebreak
-\section*{Universal Rendering}
+\section{Universal Rendering}
 Dopo aver visto come comporre microfrontend in maniera server-side e client-side, vediamo come combinare queste due tecniche
 per capire quali vantaggi possono apportare ad un progetto web.
 Il concetto che sta alla base dell' universal rendering è il seguente:

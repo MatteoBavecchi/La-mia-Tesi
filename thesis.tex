@@ -1,5 +1,4 @@
 \documentclass[a4paper,oneside]{Tptesi2}
-
 \usepackage[italian]{babel}
 \usepackage{listings}
 \usepackage{amsmath,amssymb}
@@ -73,6 +72,7 @@
   pdfkeywords={},%
   colorlinks=false}
 
+\setcounter{tocdepth}{5}
 \begin{document}
 
 \frontmatter
@@ -85,6 +85,7 @@
 %
 %
 %\pagenumbering{roman}
+
 \tableofcontents % inserisce indice generale
 \cleardoublepage
 %\addcontentsline{toc}{chapter}{Elenco delle figure}
@@ -109,10 +110,12 @@
 \include{files/chapter2}
 \include{files/conclusions}
 
+
+
 \addcontentsline{toc}{chapter}{Bibliografia}
 \bibliographystyle{plain}
 \bibliography{files/biblio}
-\bibliographystyle{unsrt}
+%\bibliographystyle{unsrt}
 %\bibliography{sp,xml}
 
 \end{document} 
