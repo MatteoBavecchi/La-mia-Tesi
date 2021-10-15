@@ -294,3 +294,36 @@ In questo modo l'app shell viene cambiata solo se si aggiunge un nuovo team o si
 
 \pagebreak
 \section*{Universal Rendering}
+Dopo aver visto come comporre microfrontend in maniera server-side e client-side, vediamo come combinare queste due tecniche
+per capire quali vantaggi possono apportare ad un progetto web.
+Il concetto che sta alla base dell' universal rendering è il seguente:
+' Avere un'unica sorgente di codice che è possibile renderizzare sia sul server che su un client ' \cite{ssr}
+
+Supponiamo di realizzare una pagina per un e-commerce di vestiti.
+Nella pagina sarà presente l'elemento più importante, quello che riesce a monetizzare la visita di un utente: il pulsante "compra".
+Il bottone "compra" è un microfrontend con stili e funzioni logiche gestite da un team specializzato, racchiuso in un web component.
+Data l'estrema priorità di avere visualizzato e funzionante il prima possibile il bottone, il team non si accontenta di una client-side composition,
+in quanto per dispositivi lenti,con internet scarso, o senza il supporto di javascript potrebbe non funzionare la composizione dell'elemento, 
+il che porterebbe ad un mancato guadagno per il sito.
+
+Una possibile soluzione è utilizzare la Server Side Integration per creare il bottone, prima di consegnare la pagina al client, in questo modo l'elemento 
+verrà subito visualizzato. Successivamente il client attuerà la composizione lato client e il bottone sarà completamente stilizzato.
+
+In questo modo l'utente può comprare il prodotto appena la pagina viene scaricata sul browser.
+
+Vediamo i casi in cui è utile la Universal Rendering: \cite{angularUniversal}
+\begin{itemize}
+    \item \textbf{Ottimizzazione SEO}: è necessario per i crawler dei motori di ricerca avere una versione statica del sito web
+    facilmente navigabile senza l'utilizzo di javascript. In questo modo ogni URL ritorna un'anteprima fedele e completa della pagina
+    \item \textbf{Performance in dispositivi lenti}: alcuni dispositivi poco potenti o non aggiornati potrebbero non supportare correttamente
+    Javascript, è quindi utile avere una versione del sito funzionante senza l'uso di scripts.
+    \item \textbf{Velocità di caricamento}: l'utente ha immediatamente una versione statica del sito completamente navigabile, che successivamente
+    con la composizione client-side diventa anche completamente interattiva. Questo è fondamentale per le landing page, che hanno l'obiettivo di convertire il più 
+    possibile le visite
+\end{itemize}
+
+
+In conclusione universal rendering è la soluzione più complessa di composizione, ma anche l'unica che riesce a unire la velocità di caricamento delle pagine server-rendered
+e l'estrema velocità di risposta all'input delle pagine client-rendered.
+
+Una SPA che ha elementi di server side rendering viene chiamata \emph{universal unified SPA}.
