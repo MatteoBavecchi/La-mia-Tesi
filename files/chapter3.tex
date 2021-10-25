@@ -1,0 +1,32 @@
+\chapter{Gestione delle risorse e stilizzazione}\label{ch:gestionerisorse}
+
+Riuscire ad ottimizzare il caricamento delle risorse, come fogli di stile CSS, 
+e mantenere un design coerente in tutti i sottoprogetti sono due
+ grandi sfide della programmazione microfrontend, ne vediamo quindi delle strategie.
+
+
+\section{Caricamento delle risorse}
+Possono essere presenti nei progetti dei fragments dei file CSS e javascript, necessari
+al giusto design e funzionamento logico del componente. Esistono diverse politiche 
+atte a caricare le risorse necessarie a tutti i microfronend:
+
+\subsection{Referencing con soluzioni client-rendered}
+Il modo più semplice consiste nel caricare le risorse necessarie direttamente dalla pagina ospitante.
+I team quindi dovranno fornire gli indirizzi dei file richiesti.
+Per far risparmiare traffico agli utenti, di solito viene impostata una regola che fa mantenere ai client
+le risorse in cache per un anno, in questo modo non devono essere scaricate tutte le volte.
+
+Ma quando viene distribuito una nuova versione di file, i client hanno in cache delle versioni obsolete, e devono riscaricarle.
+Per far si che avvenga, si appone al nome dei file il \emph{fingerprint}, un codice alfanumerico che deriva dal checksum del file.
+Questa tecnica, chiamata \textbf{cache busting}, forza il browser dell'utente a riscaricare i file.
+Per far si che i team possano distribuire autonomamente i file, senza comunicare ogni volta il nuovo nome del
+fingerprint alla pagina ospitante, si include in questa dei nomi generici, che verranno poi reindirizzati dal webserver all'ultimo file aggiornato.
+
+
+
+\subsection{Referencing con soluzioni server-rendered}
+Se il progetto utilizza già il rendering lato server, è possibile includere le risorse nel codice
+del fragment, in modo che quando questo viene sostituito dalla direttiva SSI dal webserver, va ad includere
+alla pagina HTML anche i file necessari. Se però il fragment viene incluso nella pagina più volte, anche le risorse vengono 
+scaricate ripetutamente. Inoltre i file javascript vengono eseguiti tante volte quanto vengono inclusi nella pagina,
+il che va ad aumentare il carico sulla CPU del client e potrebbe creare errori di esecuzione.
