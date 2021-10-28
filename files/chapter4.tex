@@ -1,3 +1,216 @@
 \chapter{Caso di studio: Leonardo SPA}\label{ch:leonardo}
 
-Ciao
+\section{Introduzione}
+
+Adesso, viste le tecniche per la realizzazione di un'architettura microfrontend, ne vediamo
+un'applicazione, realizzata in collaborazione con Leonardo, una realtà industriale globale 
+nell'alta tecnologia, in settori come aerospazio, difesa e sicurezza.
+
+\subsection{La sala di controllo: la piattaforma Leonardo X2030}
+La sala di controllo è il luogo per la gestione degli eventi di pubblica sicurezza, delle indagini
+delle operazioni di polizia: rappresenta il punto logico di convergenza per i sensori di campo,
+ci sono presenti applicazioni che elaborano dati caratterizzati da diverso formato 
+e sistemi dedicati alla pianificazione e gestione delle risorse.
+ 
+\subsubsection{Scenario}
+La complessità è ciò che gli operatori della sicurezza devono affrontare nella quotidianità.
+Il contesto operativo è caratterizzato dalla disponibilità di
+molti flussi di dati eterogenei che devono essere elaborati,
+sintetizzati, contestualizzati in modo tempestivo per poi essere
+tradotti in informazioni fruibili, che consentano agli operatori di
+prendere le giuste decisioni in tempi brevi.
+Non riuscire a fare ciò, può segnare la differenza tra il successo
+e fallimento per una missione che, in contesti critici (\emph{mission-critical}) come
+la sicurezza o la difesa pubblica, possono anche comportare rischi per la vita umana.
+
+Le nuove applicazioni di comando e controllo hanno bisogno di padroneggiare l'enorme carico di informazioni
+al fine di:
+\begin{itemize}
+    \item estrarre informazioni rilevanti da un'enorme quantità di
+    dati eterogenei, anche facendo uso di esperienze passate elaborate da intelligenza artificiale
+    \item convertire tali informazioni in indicazioni utili per la gestione delle operazioni
+    \item essere in grado di diffonderle sul campo in modo sicuro ed efficace.
+\end{itemize}
+
+\subsubsection{Il ruolo chiave della tecnologia:}
+Nelle applicazioni \emph{mission-critical}, l'affidabilità
+della soluzione e il pieno rispetto delle 
+procedure operative esistenti hanno la precedenza
+sulla disponibilità di eventuali funzioni sofisticate. 
+Per questo generalmente viene adottato un approccio conservatore
+ riguardo l'uso di tecnologie innovative ed emergenti.
+
+L'evoluzione delle telecomunicazioni e dell'informatica 
+hanno portato alla disponibilità di tecnologie capaci
+di superare alcuni problemi bloccanti, rendendo la
+progettazione di un sistema di nuova generazione finalmente possibile.
+
+Tali tecnologie sono essenzialmente:
+
+\begin{itemize}
+    \item \textbf{4G e 5G:} consentono di costruire un sistema di comunicazione scalabile,
+    adattabile dinamicamente alle prestazioni richieste e di supportare l'integrazione con
+    reti di generazione precedente.
+    \item \textbf{Big Data:} IoT, videosorveglianza con telecamere multi megapixel,
+    grandi database e accessi agli archivi storici, sono causa di un incremento enorme di 
+    dati che devono essere consultati ed elaborati, e che richiedono
+    tecnologie adeguate per una corretta gestione.
+    \item \textbf{Intelligenza artificiale:} L'aumento della quantità di dati nella sala di 
+    controllo richiede l'automazione per scaricare l'operatore da compiti di sorveglianza 
+    ingombranti,come l'analisi video,e per fornire supporto decisionale tramite simulazioni
+     e proiezioni basate su esperienze passate simili.
+    \item \textbf{Sicurezza informatica:} Le nuove sale di controllo
+    sono sempre più connesse e quindi esposte a minacce che devono essere contrastate a partire 
+    dal design di quest'ultime fino al monitoraggio in tempo reale, utilizzando una gestione proattiva. 
+    \item \textbf{Cloud Computing:} Sono necessari nuovi modelli di elaborazione per far fronte
+    un carico di lavoro distribuito e dinamicamente variabile. Il cloud computing consente l' ottimizzazione fisica
+    delle risorse allocando la potenza di calcolo quando e dove richiesto.
+     E' preferibile adottare una soluzione privata per questioni di sicurezza.
+
+\end{itemize}
+
+
+
+\subsection{La soluzione di Leonardo: la piattaforma X2030}
+Sfruttando le numerose esperienze maturate negli anni,
+Leonardo ha disegnato \textbf{X2030}, una nuova generazione
+di prodotto per il comando e il controllo finalizzato a equipaggiare
+i clienti con soluzioni versatili e scalabili, seguendo il nuovo paradigma
+basato sul modello operativo  \textbf{Data and Experience-Centric}.
+
+
+
+X2030 implementa una
+architettura federale ,che può estendersi su più siti ed essere
+accessibile in modo sicuro da diverse organizzazioni, in grado di:
+\begin{itemize}
+
+    \item Integrare tutti i sistemi e le applicazioni esistenti nella sala di comando
+     aggiungendo nuove funzioni e servizi se
+    necessario.
+    \item Raccogliere informazioni da sorgenti di dati strutturate (banche dati,
+    archivi) e non strutturate (video, sensori,
+    media).
+    \item Fornire agli operatori tutte le informazioni utili
+     per un efficace
+    monitoraggio, sorveglianza e gestione di un evento,
+    fornendo \textbf{suggerimenti operativi} generati da
+    attività di background di analisi (estrazione di dati, dati
+    correlati, analisi video).
+    \item Ottimizzare la logistica e la gestione delle risorse interagendo con
+    tutti i database, strutturati o non strutturati.
+    \item Supportare l'analisi delle indagini per i 
+    fenomeni monitorati analizzando grandi quantità di dati,
+    fornendo simulazioni.
+
+\end{itemize}
+
+
+\subsubsection{Architettura di X2030}
+\textbf{X2030} è basato su un'architettura a micro servizi,
+supporta una distribuzione cloud e ha un accesso web.
+Dal punto di vista dell'architettura logica,
+è organizzato nei seguenti livelli:
+\begin{itemize}
+    \item \textbf{Integration Layer:} include tutti i sottosistemi e
+    sensori che acquisiscono informazioni direttamente dal 
+    campo. A tale livello, le informazioni ottenute
+    potrebbero essere già oggetto di una prima elaborazione
+    secondo la business-logic del suo dominio.
+    \item \textbf{Core Layer:} è il livello logico centrale, nonchè il
+    kernel di X-2030. Qui, dati ed eventi in arrivo
+    dall'Integration Layer vengono raccolti attraverso l'
+    infrastruttura a microservizi e messi
+    a disposizione dei vari motori di elaborazione.
+    \item \textbf{Presentation Layer:} questo livello si basa su
+    un HMI(Interfaccia uomo-macchina) innovativa, costruita per semplificare le
+    informazioni visualizzate dall'operatore.Il livello, basato su 
+    \textbf{GIS} (Geographic Information System)
+    permette di essere utilizzato da ingresso per vari sottolivelli fornendo
+    diversi servizi offerti dal sistema
+\end{itemize}
+
+
+
+La versatilità di X2030 e la possibilità di integrazione
+con applicazioni esistenti o specifiche danno il
+possibilità di progettare e distribuire 
+soluzioni di controllo e comando in diversi domini applicativi
+come:
+
+\begin{itemize}
+    \item \textbf{Pubblica sicurezza e forze di polizia
+    \item Operazioni di difesa
+    \item Governo della città}
+\end{itemize}
+
+
+
+
+\subsubsection{Casi d'uso}
+Supponendo di voler gestire eventi relativi all'esecuzione 
+dell'ordine pubblico, vediamo le caratteristiche della piattaforma:
+
+\begin{itemize}
+    \item Organizzazione eventi: ispezione dell'aera su mappa 3D
+    supportato da realtà virtuale
+    \item Identificazione delle risorse disponibili e posizione sulla mappa
+    comprese tutte le informazioni disponibili (abilità, attrezzatura,...).
+    \item Tracciamento continuo delle risorse rilevanti sulla mappa.
+    \item Suggerimento automatico del percorso migliore da parte dell'assistente virtuale.
+    \item Istruzioni/divulgazione di informazioni sul campo (incluso
+    immagini, percorso migliore, ecc.) tramite \textbf{radio broadband}.
+    \item Visualizzazione e streaming di riprese da droni (se presenti) su
+    smartphone o tablet per operatori sul campo.
+    \item Estrazione di dati sintetici e inoltro a sistemi federati
+    (incluse sale di controllo aggiuntive o altri responsabili )
+    al fine di condividere le informazioni e migliorare il coordinamento
+    \item Monitoraggio dei social media per eventuali informazioni rilevanti
+    \item Analisi video utilizzata per rilevare potenziali eventi interessanti
+\end{itemize}
+
+
+La piattaforma aiuta molto gli addetti in casi di gestione di emergenze, infatti un eventuale
+evento viene localizzato sulla mappa al momento dell'occorrenza e assegnato ad un operatore.
+Tutte le informazioni rilevanti disponibili possono essere facilmente visualizzate. 
+Il sistema può interrogare i database disponibili cercando
+informazioni relative ai soggetti coinvolti (persone, telefono
+chiamate effettuate, armi) e visualizza i risultati in maniera chiara.
+A questo punto l'operatore della sala di controllo può ordinare l'intervento alla 
+risorsa  più adeguata a gestire la situazione. "Trascina e scegli" semplifica
+operazione di assegnazione che può essere completata via radio
+conversazione con gli agenti coinvolti, semplicemente effettuando azioni "drag and drop".
+Se necessario il sistema può automaticamente impostare una chiamata di gruppo dinamica 
+che coinvolga le risorse scelte sul campo e sala di controllo. Tramite la radio broadband è possibile
+inoltre inviare alle risorse sul campo informazioni, come immagini o percorsi migliori.
+Qualora si rendessero disponibili risorse più adeguate durante
+gestione dell'evento, il sistema sarà in grado di proporre una modifica di squadra.
+
+Inoltre tutte le attività relative all'evento vengono memorizzate e archiviate.
+Alla chiusura dell'evento, tutte le informazioni sull'evento sono disponibili in
+database strutturato per interrogazioni forensi o amministrative
+e indagini.
+
+
+
+\section{Progettazione del componente}
+
+\subsection{Scelta dell'architettura microfrontend}
+
+\subsection{Class diagram}
+
+
+\subsection{Scelta del sistema di comunicazione}
+
+\subsection{Angular Elements}
+
+
+\section{Sviluppo}
+
+\subsection{Sequence diagram}
+
+
+\subsection{User Design}
+
+\subsection{Problemi riscontrati}
+
