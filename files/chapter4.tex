@@ -191,16 +191,78 @@ Alla chiusura dell'evento, tutte le informazioni sull'evento sono disponibili in
 database strutturato per interrogazioni forensi o amministrative
 e indagini.
 
-
+\pagebreak
 
 \section{Progettazione del componente}
+Presentata la piattaforma X2030, andremo a focalizzarci sul progetto specifico realizzato.
+Precedentemente abbiamo spiegato che la dashboard aiuta l'operatore nei momenti di emergenza a gestire le 
+risorse sul campo, assegnarle alla missione e comunicare con loro tramite gli apparati radio per 
+condividere obiettivi e informazioni sull'accaduto.
+Un obiettivo della piattaforma è anche quello di seguire l'operatore il più possibile in 
+queste delicate procedure,
+che sono scandite da precisi passaggi descritti in appositi protocolli operativi.
+E' prassi che l'operatore segua tutti i passaggi nel giusto ordine
+e che metta a verbale l'esecuzione di ognuno di questi.
+
+Si vuole quindi realizzare un componente che appare a schermo ogni volta che l'operatore deve
+ gestire un evento,
+che visualizzi le varie operazioni suggerite, e che tenga conto di quelle effettuate o meno.
+Il componente dovrà anche suggerire all'operatore la serie di sotto-operazioni (dette \textbf{routines}) 
+necessarie al
+compimento di ognuna di queste.
+Un database remoto conterrà la lista dei vari eventi che potrebbero accadere, comprese le operazioni 
+suggerite (chiamate \textbf{suggested-operations}) da effettuare, e relative routines.
+Ogni evento è identificato univocamente da due ID, chiamati \emph{firstLevelId} e \emph{secondLevelId}, 
+dove il secondo specializza il primo(e.g. una rissa con armi bianche ha come ID: firstLevelId="Liti" 
+secondLevelId="Aggressione con coltello").
+
+
 
 \subsection{Scelta dell'architettura microfrontend}
+La piattaforma web comprende vari strumenti, uniti da un unica dashboard che ha come elemento centrale una 
+mappa satellitare. Gli strumenti sono stati sviluppati da diversi team dell'azienda, e vengono continuamente
+aggiornati tramite distribuzioni. Si è deciso di affrontare il progetto con un approccio microfrontend,
+e la scelta dell'architettura che lo realizzi è caduta su una composizione di web-components effettuata
+lato client, realizzando così una Single Page Application unificata, ecco perché:
+\begin{itemize}
+    \item E' necessario un feedback immediato ad ogni azione compiuta dall'operatore
+    \item L'applicazione web viene usata da organizzazioni interne alle Forze dell'Ordine 
+    e non è pubblica, quindi non serve alcuna indicizzazione sui motori di ricerca
+    \item Essendo il progetto nuovo, non sono presenti parti legacy, ovvero applicazioni non modificabili 
+    \item E' richiesta una soft navigation in tutta la web app
+    \item Non è fondamentale il tempo di caricamento iniziale della pagina 
+\end{itemize}
 
+
+Il microfrontend verrà quindi incapsulato in un Web Component, che avrà gli attibuti \emph{firstLevel}, \emph{secondLevel} e \emph{eventId}.
+E' inoltre possibile passare al componente l'attributo opzionale \emph{endpoint}, per indicare un differente URL per l'interrogazione al database.
+
+\pagebreak
 \subsection{Class diagram}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm]{img/class_diagram}
+    \caption{Class Diagram}
+  \end{figure}
+
+Per ogni evento previsto dal sistema è associata l'entità \textbf{EventSuggestedOperation}, che contiene una collezione
+di \textbf{Operation}, queste consistono nelle operazioni che dovrà effettuare l'operatore per completare la risposta 
+all'evento accaduto. l'attributo \emph{tooltip} conterrà un eventuale suggerimento che verrà visualizzato al passare del 
+mouse. \emph{actionId} indica invece il tipo di operazione da effettuare. Il booleano \emph{done} invece indica se suddetta 
+operazione è stata effettuata o meno. Ogni operazione ha una collezione di \textbf{routines}, che servono a automatizzare il compimento 
+di quest'ultima, facilitando l'esperienza utente. Ogni routine ha una payload contenuto nell'attributo \emph{data}.
 
 
 \subsection{Scelta del sistema di comunicazione}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm]{img/broadcast_channel}
+    \caption{Schema del broadcast channel}
+  \end{figure}
+
+  
 
 \subsection{Angular Elements}
 

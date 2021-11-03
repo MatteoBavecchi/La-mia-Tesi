@@ -40,12 +40,12 @@
 \contentsline {subsubsection}{Casi d'uso}{29}{section*.13}%
 \contentsline {section}{\numberline {4.2}Progettazione del componente}{31}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Scelta dell'architettura microfrontend}{31}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Class diagram}{31}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Scelta del sistema di comunicazione}{31}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Angular Elements}{31}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}Sviluppo}{31}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Sequence diagram}{31}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}User Design}{31}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Problemi riscontrati}{31}{subsection.4.3.3}%
-\contentsline {chapter}{\numberline {5}Conclusioni}{32}{chapter.5}%
-\contentsline {chapter}{Bibliografia}{33}{chapter.5}%
+\contentsline {subsection}{\numberline {4.2.2}Class diagram}{33}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Scelta del sistema di comunicazione}{34}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Angular Elements}{34}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Sviluppo}{34}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Sequence diagram}{34}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}User Design}{34}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Problemi riscontrati}{34}{subsection.4.3.3}%
+\contentsline {chapter}{\numberline {5}Conclusioni}{35}{chapter.5}%
+\contentsline {chapter}{Bibliografia}{36}{chapter.5}%
