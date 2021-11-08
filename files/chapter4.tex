@@ -249,30 +249,117 @@ E' inoltre possibile passare al componente l'attributo opzionale \emph{endpoint}
 Per ogni evento previsto dal sistema è associata l'entità \textbf{EventSuggestedOperation}, che contiene una collezione
 di \textbf{Operation}, queste consistono nelle operazioni che dovrà effettuare l'operatore per completare la risposta 
 all'evento accaduto. l'attributo \emph{tooltip} conterrà un eventuale suggerimento che verrà visualizzato al passare del 
-mouse. \emph{actionId} indica invece il tipo di operazione da effettuare. Il booleano \emph{done} invece indica se suddetta 
+mouse. \emph{actionId} indica invece il tipo di operazione da effettuare per concludere tale operazione. Il booleano \emph{done} invece indica se suddetta 
 operazione è stata effettuata o meno. Ogni operazione ha una collezione di \textbf{routines}, che servono a automatizzare il compimento 
 di quest'ultima, facilitando l'esperienza utente. Ogni routine ha una payload contenuto nell'attributo \emph{data}.
 
 
 \subsection{Scelta del sistema di comunicazione}
+Il componente, chiamato \textbf{SuggestedOperationWidget}, ha bisogno di comunicare con la pagina ospitante con queste modalità:
+\begin{itemize}
+    \item Se l'operatore conclude un operazione, il \textbf{SuggestedOperationWidget} deve saperlo, e lo sfondo dell'operazione 
+    appena effettuata deve risultare verde
+    \item quando si sceglie di eseguire un operazione dal widget, questo deve inviare alla pagina ospitante le routines collegate
+\end{itemize}
 
+Per effettuare queste comunicazioni è stato adottato \textbf{Broadcast Channel API}, il quale è stato già introdotto precendetemente.
+
+Si vanno quindi a definire due canali di comunicazione:
+\begin{itemize}
+    \item \textbf{po.actions}: per comunicare dalla pagina ospitante al componente le azioni che sono state effettuate dall'operatore.
+    \item \textbf{sow.routines}: permette al componente di inviare le routines necessarie al compimento dell'operazione alla pagina ospitante
+\end{itemize}
 \begin{figure}[H]
     \centering
     \includegraphics[width=150mm]{img/broadcast_channel}
     \caption{Schema del broadcast channel}
   \end{figure}
 
-  
 
-\subsection{Angular Elements}
+\pagebreak
+\subsection{Angular}
+Si è scelto di creare il componente con Angular, in quanto viene già usato per il resto del progetto di Leonardo.
 
+Angular è un framework di progettazione per applicazioni e una piattaforma di sviluppo per la creazione 
+di SPA efficienti e sofisticate. \cite{angular}
+
+Si è creato quindi un Component Angular, il quale consiste in:
+\begin{itemize}
+    \item Un template HTML che definisce l'aspetto
+    \item Una classe Typescript che definisce la logica
+    \item Un selettore per definire come il componente è usato nel template
+    \item un foglio di stile CSS
+\end{itemize}
+
+Creare un fragment microfrontend con Angular è molto semplice, perchè il framework mette a disposizione il concetto di 
+\textbf{Angular Elements}, che consiste nell'incapsulare un componente in un Web Component.
+
+Il package \emph{@angular/elements} esporta il metodo \emph{createCustomElement()}, che mette a disposizione un ponte tra
+l'interfaccia del componente Angular e le funzionalità di riconoscimento dei cambiamenti presenti nelle API javascript.
+
+L'obiettivo è quello di convertire anche gli altri componenti della applicazione web in Angular Elements, tutti provenienti da app diverse,
+sviluppate da team diversi.
+Un problema che è stato riscontrato durante il tirocinio è che di base non possono coesistere più app Angular nella solita pagina.
+Questo è dovuto ad un limite di compilazione: Angular utilizza Webpack per creare il bundle dell'app, creando un oggetto \textbf{window.webpackJsonp}.
+Il nome dell'oggetto non è modificabile, quindi eventuali altre app che si eseguono nella pagina causeranno un conflitto di namespacing, causando
+il malfunzionamento dell'app. \cite{webpackModifica}
+
+Per rinominare l'app abbiamo scelto la libreria \textbf{Npx Build Plus}, definendo un semplice comando per chiedere a Webpack di 
+dare un nome univoco:
+
+module.exports = {
+    output: {
+        library: 'suggOpWidget'
+    }
+};
+
+
+E' stato realizzato inoltre una repository pubblica su Github, che fungerà da esempio per i prossimi componenti. 
+Questa contiene un Angular Element già correttamente configurata e pronta per essere compilata e 
+per coesistere con più fragment in un'unica pagina.\cite{repogit}
 
 \section{Sviluppo}
+Il codice del componente comprende principalmente i seguenti files:
+\begin{itemize}
+    \item Le interfacce:
+    \subitem eventOperation.model.ts
+    \subitem suggestedOperation.model.ts
+    \subitem routine.model.ts
+\end{itemize}
+
+\begin{itemize}
+    \item Il componente:
+    \subitem suggested-operation-widget.component.ts
+    \subitem suggested-operation-widget.component.html
+    \subitem suggested-operation-widget.component.scss
+\end{itemize}
+
+\begin{itemize}
+    \item I servizi:
+    \subitem events.service.ts
+ \end{itemize}
+
+ La logica del componente risiede principalmente nel servizio \textbf{events}.
+ Per limitare le connessioni al server si effettua una cache delle operazioni suggerite scaricate dal database.
+ Quando il componente si avvia, controlla se è presente una cache e se è aggiornata, in caso contrario si effettua una richiesta
+ al server.
+ La cache trattiene anche gli storici delle operazioni già effettuate, marcate come "done", 
+ per mantenerle anche nelle successive sessioni del browser.
+
+
 
 \subsection{Sequence diagram}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm]{img/sequence}
+    \caption{Sequence diagram che mostra l'interazione dell'operatore con il componente}
+  \end{figure}
 
 
 \subsection{User Design}
 
 \subsection{Problemi riscontrati}
 
+\pagebreak
+\section{Sviluppi futuri}

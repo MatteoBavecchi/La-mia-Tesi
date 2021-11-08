@@ -1,9 +1,30 @@
 \begin{thebibliography}{1}
 
+\bibitem{repogit}
+Matteo Bavecchi.
+\newblock {angular-element-example}.
+\newblock \url{https://github.com/MatteoBavecchi/angular-elements-example},
+  2021.
+\newblock [Online; accessed 4-November-2021].
+
+\bibitem{webpackModifica}
+Nicholas Favero.
+\newblock {Multiple Angular Apps on a single page}.
+\newblock
+  \url{https://medium.com/swlh/multiple-angular-apps-on-a-single-page-9f49bc863177},
+  2019.
+\newblock [Online; accessed 4-November-2021].
+
 \bibitem{ssr}
 Michael Geers.
 \newblock {\em Microfrontends in action}.
 \newblock Manning, 2020.
+
+\bibitem{angular}
+Google.
+\newblock {Angular Docs}.
+\newblock \url{https://angular.io/docs}, 2021.
+\newblock [Online; accessed 4-November-2021].
 
 \bibitem{angularUniversal}
 Google.
