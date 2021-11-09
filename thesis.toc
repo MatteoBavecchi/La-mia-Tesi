@@ -46,7 +46,5 @@
 \contentsline {section}{\numberline {4.3}Sviluppo}{36}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Sequence diagram}{37}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}User Design}{37}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Problemi riscontrati}{37}{subsection.4.3.3}%
-\contentsline {section}{\numberline {4.4}Sviluppi futuri}{38}{section.4.4}%
 \contentsline {chapter}{\numberline {5}Conclusioni}{39}{chapter.5}%
-\contentsline {chapter}{Bibliografia}{40}{chapter.5}%
+\contentsline {chapter}{Bibliografia}{41}{chapter.5}%

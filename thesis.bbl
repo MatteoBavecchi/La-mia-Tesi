@@ -1,4 +1,10 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{nebula}
+Akveo.
+\newblock {Nebula}.
+\newblock \url{https://akveo.github.io/nebular/}, 2021.
+\newblock [Online; accessed 8-November-2021].
 
 \bibitem{repogit}
 Matteo Bavecchi.
@@ -41,14 +47,6 @@ Ilya Grigorik.
   2013.
 \newblock [Online; accessed 25-October-2021].
 
-\bibitem{mozillaiframe}
-Ingo Lütkebohle.
-\newblock {BWorld Robot Control Software}.
-\newblock
-  \url{http://aiweb.techfak.uni-bielefeld.de/content/bworld-robot-control-software/},
-  2008.
-\newblock [Online; accessed 19-July-2008].
-
 \bibitem{dom}
 Mozilla.
 \newblock {DOM}.
@@ -61,5 +59,11 @@ Mozilla.
 \newblock \url{https://developer.mozilla.org/en-US/docs/Web/Web_Components},
   2021.
 \newblock [Online; accessed 10-October-2021].
+
+\bibitem{mosaic}
+Zalando.
+\newblock {Mosaic}.
+\newblock \url{https://www.mosaic9.org/}, 2021.
+\newblock [Online; accessed 9-November-2021].
 
 \end{thebibliography}
