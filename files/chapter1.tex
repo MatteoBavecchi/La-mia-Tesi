@@ -1,6 +1,11 @@
 \chapter{Microfrontend}\label{ch:chapter1}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=160mm]{img/schema_microfrontend}
+  \caption{Differenze di composizione di team tra approccio monolitico e microfrontend}
+\end{figure}
 L'obiettivo della tecnologia microfrontend è quello di superare l'approccio monolitico, che vede
-lo sviluppo di applicazioni web suddiviso in due teams: backend e frontend.
+lo sviluppo di applicazioni web suddiviso in due team: backend e frontend.
 
 Si fa questo vedendo un'applicazione web come un insieme
 di elementi, chiamati fragment o microfrontend, molto disaccoppiati tra di loro
@@ -11,6 +16,10 @@ Essendo i singoli microfrontend autonomi,
 questi possono funzionare anche se estratti dalla applicazione web che li contiene,
  e il malfunzionamento di un singolo microfrontend
 non compromette la stabilità degli altri.
+I team sono autonomi, ma non sono isolati: questi infatti condividono un insieme di dati, che
+chiameremo \emph{contratto},
+fondamentali per il corretto funzionamento dell'applicazione. A seconda delle tecnologie utilizzate
+per realizzare l'architettura microfrontend, il contratto tra i team sarà più o meno complesso.
 
 
 
@@ -49,7 +58,7 @@ In alcuni casi quindi è preferibile introdurre ridondanza nel codice dei vari t
 \begin{itemize}
 
 \item \textbf{Ridondanza:}
-In informatica si è addestrati a ridurre al minimo ridondanze.
+In informatica si è addestrati a ridurre al minimo le ridondanze.
 Anche nel caso dello sviluppo frontend ci sono degli episodi nei quali la ridondanza può
  essere molto costosa: come ad esempio quando viene trovato un bug in una libreria e 
  questo viene risolto da un team, il fix dovrà essere comunicato agli altri e questi 

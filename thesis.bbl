@@ -6,12 +6,28 @@ Akveo.
 \newblock \url{https://akveo.github.io/nebular/}, 2021.
 \newblock [Online; accessed 8-November-2021].
 
+\bibitem{istat}
+ANSA.
+\newblock {Istat, calano vendite ma cresce e-commerce}.
+\newblock
+  \url{https://www.ansa.it/sito/notizie/economia/2021/01/12/commercio-istat-calo-vendite-del-69-a-novembre.-bankitalia-covid-pesa-sulle-pmi_a2343dad-a259-48e8-85df-7ebf93dfac4f.html},
+  2021.
+\newblock [Online; accessed 14-November-2021].
+
 \bibitem{repogit}
 Matteo Bavecchi.
 \newblock {angular-element-example}.
 \newblock \url{https://github.com/MatteoBavecchi/angular-elements-example},
   2021.
 \newblock [Online; accessed 4-November-2021].
+
+\bibitem{fbdown}
+Samantha~Subin CNBC.
+\newblock {Facebook’s outage }.
+\newblock
+  \url{https://www.cnbc.com/2021/10/09/facebook-instagram-outage-hurt-creators-small-businesses.html},
+  2021.
+\newblock [Online; accessed 14-November-2021].
 
 \bibitem{webpackModifica}
 Nicholas Favero.
