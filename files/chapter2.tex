@@ -1,11 +1,11 @@
-\chapter{Composizione}\label{ch:composizione}
+\chapter{Composizione di microfrontend}\label{ch:composizione}
 Per far convivere i progetti realizzati dai vari team esistono varie metodologie. Questo
  presuppone che i team, nella loro autonomia, debbano comunque scambiarsi un minimo di informazioni e di vincoli
 che servono alla corretta integrazione delle app web, chiamiamo questo insieme di dati \emph{contratto tra team}.
 
 \section{Collegamento tra pagine con links}
 La soluzione più semplice è quella del collegamento tra pagine con link URL: in questo modo il contratto consiste negli indirizzi delle pagine,
-che i team dovranno scambiarsi tra di loro.
+che i team dovranno rendere pubblici.
 Questa soluzione è quella che rende i team il più autonomi e disaccoppiati possibile, inoltre
 si ha grande robustezza, in quanto se un progetto si corrompe, questo non influenza minimamente gli altri,
 che possono anche essere detenuti in server diversi.
@@ -13,13 +13,13 @@ che possono anche essere detenuti in server diversi.
 Lo svantaggio è che in una pagina web è possibile contenere informazioni provenienti da un solo team.
 
 Questa soluzione viene usata quando è richiesta una forte robustezza, oppure quando si deve implementare 
-i microfrontends in una app legacy già esistente.
+in un progetto a microfrontends una app legacy già esistente, che non può essere modificata.
 
 
 \section{Composizione tramite iframes}
 L' iframe è un elemento HTML che permette di incorporare un'altra pagina HTML all'interno di quella corrente. \cite{mozillaiframe}
 
-Questo elemento può essere usato per comporre fragments provenienti da teams differenti, visualizzandoli su un'unica
+Questo elemento può essere usato per comporre fragments provenienti da teams differenti, visualizzandoli in un'unica
 pagina web.
 Un team si impegnerà a realizzare la pagina ospitante e dovrà far presente agli altri attori lo spazio riservato
 ai loro fragments per evitare problemi di visualizzazione, questo dato, oltre che agli indirizzi
@@ -30,46 +30,52 @@ Infatti le informazioni che vediamo nella pagina non sono in unico file HTML, di
 contenute negli iframes.
 
 \subsection{Composizione con Ajax}
-Un modo per superare il problema dei motori di ricerca ai quali sono affetti gli iframes è quello di 
+Un modo per superare il problema dei motori di ricerca negli iframes è quello di 
 caricare i file HTML con Ajax.
 
-La pagina ospitante, detta \emph{wrapper} ha il compito di caricare nel proprio DOM ( Document Object Model) i fragments dei vari 
+La pagina ospitante, detta \emph{wrapper} ha il compito di caricare nel proprio DOM (Document Object Model) i fragments dei vari 
 team, con l'ausilio di un codice javascript, che utilizza la funzione fetch().
 
-Il problema principale però è che l’Ajax request è asincrona, 
+Il problema principale però è che la richiesta Ajax è asincrona, 
 questo porta a dei ritardi nel caricamento completo della pagina.
 
 \subsection{Utilizzo del Routing Server-side}
 Il routing è un elemento fondamentale dell’architettura microfrontend.
-L’elemento che stiamo introducendo viene chiamato frontend proxy, cioè un web server che effettua routing,
- che intercetta le richieste con un certo percorso e le instrada al giusto fragment. In questo modo anche se
-  i progetti dei vari team risiedono in spazi diversi, l’utente vedrà un URL omogeneo e non si accorgerà delle origini dei fragment.
+L’elemento che stiamo introducendo viene chiamato \textbf{frontend proxy}, cioè un web server che effettua azioni di instradamento.
+ Il frontend proxy intercetta le richieste con un certo percorso e le instrada al giusto fragment. In questo modo anche se
+  i progetti dei vari team risiedono in spazi diversi, l’utente vedrà un URL omogeneo e non si accorgerà delle origini diverse dei fragment.
 Il funzionamento consiste in questi passaggi:
-\begin{itemize}
-    \item Il client apre l’ URL “/foo/bar”. La richiesta raggiunge il frontend proxy
-    \item Il frontend proxy confronta il path “/foo/bar/“8 con la propria routing table, con corrispondenza in prossimità della regola i
-    \item Il frontend proxy passa la richiesta al fragment associato
-    \item Il fragment genera una risposta e la ritorna al frontdend proxy
-    \item La risposta arriva infine al client
-\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=140mm]{img/frontend proxy}
+    \caption{  
+        \textbf{1:} Il client apre l’ URL \emph{“/foo/bar”}. La richiesta raggiunge il frontend proxy;
+        \textbf{2:} Il frontend proxy confronta il path \emph{“/foo/bar/“} con la propria tabella di routing, con corrispondenza in prossimità della regola i;
+        \textbf{3:} Il frontend proxy passa la richiesta al fragment associato;
+        \textbf{4:} Il fragment genera una risposta e la ritorna al frontdend proxy;
+        \textbf{5:} La risposta arriva infine al client;
+   }
+  \end{figure}
 
 
 \pagebreak
 
 \section{Composizione Server-side}
-Si suppone di lavorare ad un progetto microfrontend incentrato principalmente su contenuti e informazioni, senza particolari applicativi logici al suo interno.
-Un esempio di sito incentrato sulle informazioni( anche detto \emph{content-centric}) è Wikipedia, le sue caratteristiche principali sono:
-\begin{enumerate}
+Si suppone di lavorare ad un progetto microfrontend incentrato principalmente su contenuti e informazioni, senza particolari componenti logiche al suo interno.
+Un esempio di sito incentrato sulle informazioni(anche detto \emph{content-centric}) è Wikipedia, le sue caratteristiche principali sono:
+\begin{itemize}
     \item Tempi brevi di caricamento delle pagine
     \item Ottimizzazione per motori di ricerca
-    \item Assenza di particolari contenuto logici basati sull'interazione con l'utente
-\end{enumerate}
+    \item Assenza di particolari contenuti basati su un interazione continua con l'utente
+\end{itemize}
 
-Si introduce quindi la \textbf{composizione server-side}, che rispetta le richieste di un sito content-centric come Wikipedia.
+Si introduce quindi la \textbf{composizione server-side}, che va incontro alle richieste di un sito content-centric come Wikipedia.
 
-La composizione dei fragment viene eseguita da un servizio che risiede nel server web, il client quindi riceve la pagina completa.
+La composizione dei fragment viene eseguita da un servizio che risiede nel server web, il client quindi riceve la pagina già completata.
 
-Come nel caso degli iframes, i team che producono i fragments devono fornire al team che detiene la pagina ospitante l'URL del loro codice di markup HTML.
+Come nel caso degli iframes, i team che producono i fragments devono 
+fornire al team che gestisce la pagina ospitante l'URL del loro codice HTML.
 
 Il team della pagina ospitante userà delle direttive 
 per richiedere al server di aggiungere il codice di markup degli altri team in un preciso posto della schermata.
@@ -78,7 +84,7 @@ Un esempio di servizio di composizione è la funzione \textbf{SSI} (Server-Side 
 
 \subsection{Server-Side Includes}
 
-Nginx contiene il modulo \emph{ngx-http-ssi-module} che processa i comandi SSI.
+Nginx, il popolare web server che serve circa il 21\% dei siti internet\cite{nginx}, contiene il modulo \emph{ngx-http-ssi-module} che processa i comandi SSI.
  I comandi SSI sono istruzioni
 inserite nelle pagine HTML della pagina ospitante. Un'istruzione SSI appare nella seguente sintassi:
 
@@ -86,64 +92,76 @@ inserite nelle pagine HTML della pagina ospitante. Un'istruzione SSI appare nell
     \verb|<!--#include virtual="url/da/includere -->|
    \end{center}
 
-Avviene quindi questo:
+Quando il webserver legge la direttiva, effettua le seguenti operazioni:
 
-\begin{enumerate}
-    \item Il client effettua la richiesta della pagina
-    \item Il webserver accetta la richiesta e verifica la presenza di eventuali direttive SSI
-    \item Le direttive trovate vengono sostituite con il codice di markup reperibile all'url dell'attributo "virtual"
-    \item Il client riceve la pagina completa
-\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=140mm]{img/SSI sequence}
+    \caption{ 
+    \textbf{1:} Il client effettua la richiesta della pagina
+    \textbf{2:} Il webserver accetta la richiesta e verifica la presenza di eventuali direttive SSI
+    \textbf{3:} Le direttive trovate vengono sostituite con il codice di markup reperibile all'url dell'attributo "virtual"
+    \textbf{4:} Il client riceve la pagina completa
+    }
+  \end{figure}
 
-Si noti che le prestazioni di composizione sono nettamente aumentate rispetto alla composizione con iframes, 
+
+Le prestazioni dell'operazione di composizione sono nettamente migliorate rispetto ad iframes, 
 in quanto il client riceve la pagina già completa, effettuando un solo handshake HTML, indipendentemente dal numero
-di fragment ospitati nella pagina. Inoltre i motori di ricerca possono profilare anche il contenuto dei fragments
+di fragment ospitati nella pagina. Inoltre i motori di ricerca possono profilare anche il contenuto dei fragments.
 
 \subsubsection{Modalità di caricamento dei fragments}
 Al contrario della soluzione con iframes, lo scorretto caricamento di un fragment può rallentare o addirittura bloccare 
 il caricamento dell'intera pagina. Il webserver infatti prima di restituire la pagina aspetta di avere tutti  i suoi componenti.
 La proprietà di Nginx chiamata \emph{proxy read timeout} permette di fissare un tempo massimo per il quale il webserver 
 può aspettare un fragment.
-
-Nel caso in cui il webserver non riesce a caricare un fragment esiste il comando SSI \textbf{stub}.
+\\\\
+Nel caso in cui il webserver non riesca a caricare un fragment esiste il comando SSI \textbf{stub}.
 Si utilizza la direttiva \emph{block} che sostiuirà il fragment caricato senza successo con del codice HTML di riserva.
-Il nuovo \emph{include} contiene il nuovo attributo stub, che ha il riferimento al block corrispondente, dovesse non andare
+Il nuovo \emph{include} contiene l'attributo stub, che ha il riferimento al block corrispondente, nel caso non dovesse non andare
 a buon fine la richiesta.
-
+\\
 
 \verb|<!--# block name="fallback" -->|\linebreak
-\verb|<a href="/page"> Link</a>|\linebreak
-\verb|<!--# endblock -->|\linebreak
-\verb| <!--#include|\linebreak
-\verb|virtual="/link/to/page"|\linebreak
-\verb| stub="fallback" -->|\linebreak
+\verb|      <a href="/page"> Link</a>|\linebreak
+\verb|    <!--# endblock -->|\linebreak
+\verb|          <!--#include|\linebreak
+\verb|              virtual="/link/to/page"|\linebreak
+\verb|              stub="fallback" -->|\linebreak
 
 
 Quando Nginx deve scaricare più fragments, effettua i caricamenti in parallelo.
-Quando l'ultimo fragment viene scaricato,la pagina viene composta e inviata al client.
-Il tempo di risposta dell'intera pagina è chiamato \emph{time to first byte} (TTFB) ed è definito 
-come il tempo necessario per generare l’HTML della pagina, più il tempo di caricamento del fragment più lento.
+Solo quando l'ultimo fragment viene scaricato,la pagina viene composta e inviata al client.
+\\
+Il tempo di risposta dell'intera pagina è chiamato \textbf{time to first byte} (TTFB) ed è definito 
+come il tempo necessario per generare l’HTML della pagina, sommato al tempo di caricamento del fragment più lento.
 
 E' possibile anche annidare fragments, ma non è consigliato, in quanto si 
 interrompe la parallelizzazione dei caricamenti e si rallenta la composizione della pagina.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=140mm]{img/ssi parallelo}
+    \caption{Sequenza temporale della composizione di fragment in parallelo con SSI}
+  \end{figure}
 
 \subsubsection{Caricamento differito}
 In genere si ottimizza il caricamento della pagina effettuando una composizione server-side per la sua parte principale,
  la cosiddetta \emph{viewport}, le componenti secondarie invece è preferibile comporle lato client, con 
-delle chiamate Ajax, utilizzando la metodologia prima descritta. Questa tecnica si chiama caricamento differito, o \textbf{lazy loading}.
-
+delle chiamate Ajax, utilizzando la metodologia descritta precedentemente. Questa tecnica si chiama caricamento differito, o \textbf{lazy loading}.
+\\\\
 \subsubsection{Alternative a SSI}
 Il webserver con SSI, invia la pagina al client solo quando questa è stata completamente composta.
 Il servizio di composizione \textbf{ESI} presente nel webserver Vernish invece attua l'\emph{invio parziale},
- ovvero inizia a inviare parti di pagina anche prima che questa venga completamente assemblata.
-
-Esistono altre soluzioni, come quella sviluppata dalla società di fashion e-commerce Zalando, chimata Zalando Tailor.
-L'azienda migrò infatti il loro microfrontend dall'approccio monolitico a quello microfrontend, utilizzando una composizione
-server-side. Per via dell'entità del sito web, il team Zalando ha avviato il progetto Tailor, che ha poi portato ad un rilascio 
-ufficiale con licenza \textbf{TODOlibera}. Tailor consiste in una libreria Node.js, reperibile nel pacchetto NPM \emph{node-tailor}.
+ ovvero inizia a restituire parti di pagina anche prima che questa venga completamente assemblata, 
+ l'utente in questo modo potrà vedere informazioni, anche se non complete, in tempi più brevi.
+\\
+Esistono altre soluzioni, come quella sviluppata dalla società di fashion e-commerce Zalando, chiamata Zalando Tailor.
+L'azienda migrò infatti il loro portale dall'approccio monolitico a quello microfrontend, utilizzando una composizione
+server-side. Per via della grande dimensione del sito web, il team Zalando ha avviato il progetto Tailor, che ha poi portato ad un rilascio 
+ufficiale con licenza libera. Tailor consiste in una libreria Node.js, reperibile nel pacchetto NPM \emph{node-tailor}.
 
 Tailor riesce ad avere prestazioni migliori rispetto all'invio parziale, facendo in modo di iniziare a inviare parti di pagina al client,
-ancora prima che il server abbia finito di scaricare l'intera pagina.
+ancora prima che il server abbia finito di scaricare l'intera pagina ospitante.
 
 \pagebreak
 \section{Composizione Client-side}

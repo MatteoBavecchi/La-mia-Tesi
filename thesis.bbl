@@ -4,7 +4,7 @@
 Akveo.
 \newblock {Nebula}.
 \newblock \url{https://akveo.github.io/nebular/}, 2021.
-\newblock [Online; accessed 8-November-2021].
+\newblock [Online; prelevato il 8 novembre 2021].
 
 \bibitem{istat}
 ANSA.
@@ -12,14 +12,14 @@ ANSA.
 \newblock
   \url{https://www.ansa.it/sito/notizie/economia/2021/01/12/commercio-istat-calo-vendite-del-69-a-novembre.-bankitalia-covid-pesa-sulle-pmi_a2343dad-a259-48e8-85df-7ebf93dfac4f.html},
   2021.
-\newblock [Online; accessed 14-November-2021].
+\newblock [Online; prelevato il 14 novembre 2021].
 
 \bibitem{repogit}
 Matteo Bavecchi.
 \newblock {angular-element-example}.
 \newblock \url{https://github.com/MatteoBavecchi/angular-elements-example},
   2021.
-\newblock [Online; accessed 4-November-2021].
+\newblock [Online; prelevato il 4 novembre 2021].
 
 \bibitem{fbdown}
 Samantha~Subin CNBC.
@@ -27,7 +27,7 @@ Samantha~Subin CNBC.
 \newblock
   \url{https://www.cnbc.com/2021/10/09/facebook-instagram-outage-hurt-creators-small-businesses.html},
   2021.
-\newblock [Online; accessed 14-November-2021].
+\newblock [Online; prelevato il 14 novembre 2021].
 
 \bibitem{webpackModifica}
 Nicholas Favero.
@@ -35,7 +35,7 @@ Nicholas Favero.
 \newblock
   \url{https://medium.com/swlh/multiple-angular-apps-on-a-single-page-9f49bc863177},
   2019.
-\newblock [Online; accessed 4-November-2021].
+\newblock [Online; prelevato il 4 novembre 2021].
 
 \bibitem{ssr}
 Michael Geers.
@@ -46,13 +46,13 @@ Michael Geers.
 Google.
 \newblock {Angular Docs}.
 \newblock \url{https://angular.io/docs}, 2021.
-\newblock [Online; accessed 4-November-2021].
+\newblock [Online; prelevato il 4 novembre 2021].
 
 \bibitem{angularUniversal}
 Google.
 \newblock {Server-side rendering (SSR) with Angular Universal}.
 \newblock \url{https://angular.io/guide/universal}, 2021.
-\newblock [Online; accessed 15-October-2021].
+\newblock [Online; prelevato il 15 ottobre 2021].
 
 \bibitem{http2}
 Ilya Grigorik.
@@ -61,25 +61,39 @@ Ilya Grigorik.
 \newblock
   \url{https://hpbn.co/optimizing-application-delivery/#minimize-concatenation-and-image-spriting},
   2013.
-\newblock [Online; accessed 25-October-2021].
+\newblock [Online; prelevato il 25 ottobre 2021].
 
 \bibitem{dom}
 Mozilla.
 \newblock {DOM}.
 \newblock \url{https://www.w3schools.com/js/js_htmldom.asp}, 2021.
-\newblock [Online; accessed 10-October-2021].
+\newblock [Online; prelevato il 10 ottobre 2021].
+
+\bibitem{mozillaiframe}
+Mozilla.
+\newblock {iframe}.
+\newblock
+  \url{https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe?retiredLocale=it},
+  2021.
+\newblock [Online; prelevato il 14 novembre 2021].
 
 \bibitem{webcomponents}
 Mozilla.
 \newblock {Web Components}.
 \newblock \url{https://developer.mozilla.org/en-US/docs/Web/Web_Components},
   2021.
-\newblock [Online; accessed 10-October-2021].
+\newblock [Online; prelevato il 10 ottobre 2021].
+
+\bibitem{nginx}
+Nginx.
+\newblock {Nginx}.
+\newblock \url{https://nginx.org/en/}, 2021.
+\newblock [Online; prelevato il 14 novembre 2021].
 
 \bibitem{mosaic}
 Zalando.
 \newblock {Mosaic}.
 \newblock \url{https://www.mosaic9.org/}, 2021.
-\newblock [Online; accessed 9-November-2021].
+\newblock [Online; prelevato il 9 novembre 2021].
 
 \end{thebibliography}
