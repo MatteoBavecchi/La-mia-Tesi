@@ -57,20 +57,22 @@ Il problema principale però è che la richiesta che viene effettuata è asincro
 Non si deve sottovalutare inoltre il migliore isolamento della soluzione con iframes, che in certi ambiti può essere fondamentale.
 
 \subsection{Utilizzo del Routing Server-side}
-Il routing è un elemento fondamentale dell’architettura microfrontend.
-L’elemento che stiamo introducendo viene chiamato \textbf{frontend proxy}, cioè un web server che effettua azioni di instradamento.
+Il routing è un elemento fondamentale dell’architettura microfrontend, in quanto serve per uniformare la navigazione utente tra app provenienti da hostname differenti. 
+\\E' fondamentale che il visitatore della pagina non si accorga che i contenuti provegnano da tante sorgenti
+, è invece preferibile che l'url del sito rimanga lo stesso, indipendentemente dal microfrontend visualizzato.
+L’elemento che stiamo introducendo viene chiamato \textbf{frontend proxy}, cioè un web server in comune a tutte le app che effettua azioni di instradamento.
  Il frontend proxy intercetta le richieste con un certo percorso e le instrada al giusto fragment. In questo modo anche se
-  i progetti dei vari team risiedono in spazi diversi, l’utente vedrà un URL omogeneo e non si accorgerà delle origini diverse dei fragment.
+  i progetti dei vari team risiedono in server diversi, l’utente vedrà comunque un URL omogeneo.
 Il funzionamento consiste in questi passaggi:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=140mm]{img/frontend proxy}
+    \includegraphics[width=128mm]{img/frontend proxy}
     \caption{  
         \textbf{1:} Il client apre l’ URL \emph{“/foo/bar”}. La richiesta raggiunge il frontend proxy;
         \textbf{2:} Il frontend proxy confronta il path \emph{“/foo/bar/“} con la propria tabella di routing, con corrispondenza in prossimità della regola i;
         \textbf{3:} Il frontend proxy passa la richiesta al fragment associato;
-        \textbf{4:} Il fragment genera una risposta e la ritorna al frontdend proxy;
+        \textbf{4:} Il fragment genera una risposta e la ritorna al frontend proxy;
         \textbf{5:} La risposta arriva infine al client;
    }
   \end{figure}
@@ -80,7 +82,7 @@ Il funzionamento consiste in questi passaggi:
 
 \section{Composizione Server-side}
 Si suppone di lavorare ad un progetto microfrontend incentrato principalmente su contenuti e informazioni, senza particolari componenti logiche al suo interno.
-Un esempio di sito incentrato sulle informazioni(anche detto \emph{content-centric}) è Wikipedia, le sue caratteristiche principali sono:
+Un esempio di sito incentrato sulle informazioni (anche detto \emph{content-centric}) è Wikipedia, le sue caratteristiche principali sono:
 \begin{itemize}
     \item Tempi brevi di caricamento delle pagine
     \item Ottimizzazione per motori di ricerca
