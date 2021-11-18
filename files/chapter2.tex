@@ -25,19 +25,36 @@ Un team si impegnerà a realizzare la pagina ospitante e dovrà far presente agl
 ai loro fragments per evitare problemi di visualizzazione, questo dato, oltre che agli indirizzi
 URL delle varie pagine, farà parte del contratto tra i team.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=140mm]{img/iframes}
+    \caption{Nella pagina viene correttamente caricato il fragment, ma nel codice HTML non appare esplicitamente.}
+  \end{figure}
 Un grande svantaggio dell’uso degli iframes è la loro incompatibilità con i motori di ricerca.
 Infatti le informazioni che vediamo nella pagina non sono in unico file HTML, di conseguenza il motore di ricerca non profila le informazioni 
 contenute negli iframes.
 
 \subsection{Composizione con Ajax}
-Un modo per superare il problema dei motori di ricerca negli iframes è quello di 
-caricare i file HTML con Ajax.
+Avere una buona indicizzazione nei principali motori di ricerca è fondamentale per molte aziende online, per questo la modalità di 
+composizione utilizzata con l'aiuto degli iframes non risulta la migliore, come già detto precedentemente.
+\\Una soluzione è quella di adottare un'integrazione più profonda con l'aiuto di \textbf{Ajax} (Asynchronous JavaScript And XML),
+il quale viene usato per fare richieste a webservers da una pagina web.
+\\\\
+In questo modo, il codice HTML del fragment da includere viene inserito direttamente nel DOM (Document Object Model) della pagina ospitante.
+\\
+I team non dovranno più scambiarsi dati relativi alla dimensione necessaria per includere i propri fragment, perchè in questo modo
+i fragment prendono nella pagina automaticamente lo spazio che richiedono. Inoltre in questo modo può essere attuato un controllo attivo 
+dei fallimenti di caricamento, e quindi restituire all'utente una migliore eseperienza di navigazione.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=140mm]{img/ajax}
+    \caption{A differenza della composizione con iframes, il codice HTML del fragment appare nel codice della pagina ospitante, permettendo una migliore
+    indicizzazione da parte dei motori di ricerca.}
+  \end{figure}
 
-La pagina ospitante, detta \emph{wrapper} ha il compito di caricare nel proprio DOM (Document Object Model) i fragments dei vari 
-team, con l'ausilio di un codice javascript, che utilizza la funzione fetch().
-
-Il problema principale però è che la richiesta Ajax è asincrona, 
-questo porta a dei ritardi nel caricamento completo della pagina.
+Il problema principale però è che la richiesta che viene effettuata è asincrona, questo porta quindi a dei ritardi nel caricamento completo della pagina.
+\\
+Non si deve sottovalutare inoltre il migliore isolamento della soluzione con iframes, che in certi ambiti può essere fondamentale.
 
 \subsection{Utilizzo del Routing Server-side}
 Il routing è un elemento fondamentale dell’architettura microfrontend.
