@@ -1,9 +1,7 @@
 \chapter{Gestione delle risorse e design}\label{ch:gestionerisorse}
-
 Riuscire ad ottimizzare il caricamento delle risorse, come fogli di stile CSS, 
 e mantenere un design coerente in tutti i sottoprogetti sono due
  grandi sfide della programmazione microfrontend, ne vediamo quindi delle strategie.
-
 
 \section{Caricamento delle risorse}
 Possono essere presenti nei progetti dei fragments dei file CSS e javascript, necessari
@@ -15,8 +13,7 @@ Il modo più semplice consiste nel caricare le risorse necessarie direttamente n
 I team quindi dovranno fornire gli indirizzi dei file richiesti.
 Per far risparmiare traffico agli utenti, di solito viene impostata una regola che fa mantenere ai client
 le risorse in cache per un anno, in questo modo non devono essere scaricate tutte le volte.
-
-Ma quando viene distribuito un aggiornamento di un file, i client hanno in cache delle versioni obsolete, e devono riscaricarle.
+\\Ma quando viene distribuito un aggiornamento di un file, i client hanno in cache delle versioni obsolete, e devono riscaricarle.
 Per far si che avvenga, si appone al nome dei file il \textbf{fingerprint}, un codice alfanumerico che deriva dal checksum del file.
 Questa tecnica, chiamata \textbf{cache busting}, forza il browser dell'utente a riscaricare i file quando questi vengono modificati,
 ovvero quando il loro fingerprint cambia.
@@ -37,7 +34,7 @@ il che va ad aumentare il carico sulla CPU del client e il crearsi di errori di 
 \subsection{I vantaggi di HTTP/2}
 Il nuovo protocollo HTTP/2, basato sul progetto SPDY sviluppato da Google nel 2009, estende il precedente HTTP/1
 aumentando la velocità di caricamento delle pagine, grazie alla riduzione dell' header HTTP.
-\\\\\\
+\\\\
 Il raggruppamento di più risorse in un'unica risposta dal server è stata un'ottimizzazione fondamentale per HTTP/1.x, in cui 
 il parallelismo limitato e l'overhead elevato del protocollo in genere superavano tutte le altre preoccupazioni.
 Tuttavia, con HTTP/2, il multiplexing non è più un problema e la compressione dell'intestazione 
@@ -62,11 +59,10 @@ Di conseguenza con l'avvento di HTTP/2, il concatenamento di richieste e la divi
 
 
  \section{Design system}
-
  Un progetto composto da microfrontend ha come priorità l’autonomia, ma tutti i pezzi del progetto devono apparire 
  all’utente come parte di una cosa sola, e devono avere delle caratteristiche visive in comune. Insomma, i team hanno 
  bisogno di un modo per condividere uno schema di design e stilizzazione.
-
+\\
 Un design system contiene parti di design, come font, colori, icone, componenti di interfaccia riusabili, come bottoni 
 e form, e anche un ben definito insieme di regole.
 \\\\
@@ -82,10 +78,9 @@ Ovviamente creare un design system porta ad un impiego importante di risorse, ma
 Non obbligatoriamente per un nuovo progetto si deve creare un design system proprietario.
 Se il prodotto che stiamo costruendo è per uso interno di un’azienda, o non vogliamo investire troppo su una personalizzazione del design è molto meglio adottare progetti
  già realizzati, come Bootstrap o Material UI.
-
 \subsection{Sviluppo di un design system}
 Ci sono due modi per sviluppare un design system, il modello centrale e quello federated:
-
+\\
 Nel modello \textbf{centrale} un team di design, composto da UX designer, è impiegato esclusivamente per il design system. Gli altri team sono degli utilizzatori, che adottano i
  prodotti di quest'ultimo.
 \\\\
@@ -101,7 +96,6 @@ Ovviamente tutti i nuovi elementi creati verranno messi a disposizione anche agl
     quello federated, dove tutti concorrono alla realizzazione di questo. Il modello federated ha anche un team che si occupa di controllare la \textbf{qualità} e la 
     \textbf{consistenza} dei componenti creati.}
   \end{figure}
-
 Spesso questi due modi di sviluppare il design system vengono usati insieme quando si inizia un nuovo progetto dove 
 all'interno si crea un apposito design system: all’inizio il lavoro da fare
  è tanto, e quindi si parte con l’approccio centrale, per poi via via migrare a quello federated.
