@@ -7,17 +7,17 @@
 \newlabel{ch:composizione}{{2}{5}{Composizione di microfrontend}{chapter.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Collegamento tra pagine con links}{5}{section.2.1}\protected@file@percent }
 \citation{mozillaiframe}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Composizione tramite iframes}{6}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Composizione tramite iframe}{6}{section.2.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Nella pagina viene correttamente caricato il fragment, ma nel codice HTML non appare esplicitamente.}}{6}{figure.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Composizione con Ajax}{7}{subsection.2.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces A differenza della composizione con iframes, il codice HTML del fragment appare nel codice della pagina ospitante, permettendo una migliore indicizzazione da parte dei motori di ricerca.}}{7}{figure.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces A differenza della composizione con iframe, il codice HTML del fragment appare nel codice della pagina ospitante, permettendo una migliore indicizzazione da parte dei motori di ricerca.}}{7}{figure.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Utilizzo del Routing Server-side}{8}{subsection.2.2.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces  \textbf  {1:} Il client apre l’ URL \emph  {“/foo/bar”}. La richiesta raggiunge il frontend proxy; \textbf  {2:} Il frontend proxy confronta il path \emph  {“/foo/bar/“} con la propria tabella di routing, con corrispondenza in prossimità della regola i; \textbf  {3:} Il frontend proxy passa la richiesta al fragment associato; \textbf  {4:} Il fragment genera una risposta e la ritorna al frontend proxy; \textbf  {5:} La risposta arriva infine al client; }}{8}{figure.2.3}\protected@file@percent }
 \citation{nginx}
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}Composizione Server-side}{9}{section.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Server-Side Includes}{9}{subsection.2.3.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces  \textbf  {1:} Il client effettua la richiesta della pagina \textbf  {2:} Il webserver accetta la richiesta e verifica la presenza di eventuali direttive SSI \textbf  {3:} Le direttive trovate vengono sostituite con il codice di markup reperibile all'url dell'attributo "virtual" \textbf  {4:} Il client riceve la pagina completa }}{10}{figure.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Modalità di caricamento dei fragments}{11}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Modalità di caricamento dei fragment}{11}{section*.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Sequenza temporale della composizione di fragment in parallelo con SSI}}{12}{figure.2.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Caricamento differito}{12}{section*.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Alternative a SSI}{12}{section*.6}\protected@file@percent }
@@ -25,10 +25,10 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Nella composizione client-side, i fragment vengono assemblati dal browser}}{14}{figure.2.6}\protected@file@percent }
 \citation{webcomponents}
 \citation{dom}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Web Components}{15}{subsection.2.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Web Component}{15}{subsection.2.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Shadow DOM}{16}{section*.7}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces In questo esempio, lo stile applicato alla sottolienatura del testo, non viene esteso globalmente all'albero.}}{16}{figure.2.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Comunicazione tra fragments}{17}{subsection.2.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Comunicazione tra fragment}{17}{subsection.2.4.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces I tre modi con i quali i componenti possono comunicare all'interno della pagina}}{18}{figure.2.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}Routing Client-Side }{20}{subsection.2.4.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces Due differenti approcci di transizione di pagina in un contesto microfrontend.}}{21}{figure.2.9}\protected@file@percent }

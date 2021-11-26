@@ -1,28 +1,24 @@
 \chapter{Composizione di microfrontend}\label{ch:composizione}
-Per far convivere i progetti realizzati dai vari team esistono varie metodologie. Questo
- presuppone che i team, nella loro autonomia, debbano comunque scambiarsi un minimo di informazioni e di vincoli
-che servono alla corretta integrazione delle app web, chiamiamo questo insieme di dati \emph{contratto tra team}.
-
+Per far convivere i progetti realizzati dai più team esistono varie metodologie. Questo
+ presuppone che i team, nella loro autonomia, debbano comunque scambiarsi un minimo di informazioni e di vincoli,
+che servono alla corretta integrazione delle app web. Chiamiamo questo insieme di dati \emph{contratto tra team}.
+\\Vediamo adesso alcune possibili soluzioni che possiamo adottare per effettuare composizione di microfrontend, in ordine di complessità 
+di realizzazione, osservando per ognuna vantaggi e svantaggi.
 \section{Collegamento tra pagine con links}
 La soluzione più semplice è quella del collegamento tra pagine con link URL: in questo modo il contratto consiste negli indirizzi delle pagine,
 che i team dovranno rendere pubblici.
 Questa soluzione è quella che rende i team il più autonomi e disaccoppiati possibile, inoltre
 si ha grande robustezza, in quanto se un progetto si corrompe, questo non influenza minimamente gli altri,
 che possono anche essere detenuti in server diversi.
-
-Lo svantaggio è che in una pagina web è possibile contenere informazioni provenienti da un solo team.
-
-Questa soluzione viene usata quando è richiesta una forte robustezza, oppure quando si deve implementare 
+\\Lo svantaggio è che in una pagina web è possibile contenere informazioni provenienti da un solo team.
+\\\\Questa soluzione viene usata quando è richiesta una forte robustezza, oppure quando si deve implementare 
 in un progetto a microfrontends una app legacy già esistente, che non può essere modificata.
-
-
-\section{Composizione tramite iframes}
+\section{Composizione tramite iframe}
 L' iframe è un elemento HTML che permette di incorporare un'altra pagina HTML all'interno di quella corrente. \cite{mozillaiframe}
-
-Questo elemento può essere usato per comporre fragments provenienti da teams differenti, visualizzandoli in un'unica
+\\Questo elemento può essere usato per comporre fragment provenienti da teams differenti, visualizzandoli in un'unica
 pagina web.
 Un team si impegnerà a realizzare la pagina ospitante e dovrà far presente agli altri attori lo spazio riservato
-ai loro fragments per evitare problemi di visualizzazione, questo dato, oltre che agli indirizzi
+ai loro fragment per evitare problemi di visualizzazione, questo dato, oltre che agli indirizzi
 URL delle varie pagine, farà parte del contratto tra i team.
 
 \begin{figure}[H]
@@ -30,13 +26,13 @@ URL delle varie pagine, farà parte del contratto tra i team.
     \includegraphics[width=140mm]{img/iframes}
     \caption{Nella pagina viene correttamente caricato il fragment, ma nel codice HTML non appare esplicitamente.}
   \end{figure}
-Un grande svantaggio dell’uso degli iframes è la loro incompatibilità con i motori di ricerca.
-Infatti le informazioni che vediamo nella pagina non sono in unico file HTML, di conseguenza il motore di ricerca non profila le informazioni 
-contenute negli iframes.
+Gli iframe però non sono la scelta migliore nel caso in cui il sito realizzato debba avere una buona indicizzazione sui motori di ricerca.
+Infatti le informazioni che vediamo nella pagina non sono in unico file HTML, di conseguenza il motore di ricerca non andrà a profilare tutte le informazioni 
+, ma solo quelle della pagina ospitante, escludendo quelle contenute negli iframe.
 
 \subsection{Composizione con Ajax}
 Avere una buona indicizzazione nei principali motori di ricerca è fondamentale per molte aziende online, per questo la modalità di 
-composizione utilizzata con l'aiuto degli iframes non risulta la migliore, come già detto precedentemente.
+composizione utilizzata con l'aiuto degli iframe non risulta la migliore, come già detto precedentemente.
 \\Una soluzione è quella di adottare un'integrazione più profonda con l'aiuto di \textbf{Ajax} (Asynchronous JavaScript And XML),
 il quale viene usato per fare richieste a webservers da una pagina web.
 \\\\
@@ -48,13 +44,12 @@ dei fallimenti di caricamento, e quindi restituire all'utente una migliore esepe
 \begin{figure}[H]
     \centering
     \includegraphics[width=140mm]{img/ajax}
-    \caption{A differenza della composizione con iframes, il codice HTML del fragment appare nel codice della pagina ospitante, permettendo una migliore
+    \caption{A differenza della composizione con iframe, il codice HTML del fragment appare nel codice della pagina ospitante, permettendo una migliore
     indicizzazione da parte dei motori di ricerca.}
   \end{figure}
-
 Il problema principale però è che la richiesta che viene effettuata è asincrona, questo porta quindi a dei ritardi nel caricamento completo della pagina.
 \\
-Non si deve sottovalutare inoltre il migliore isolamento della soluzione con iframes, che in certi ambiti può essere fondamentale.
+Non si deve sottovalutare inoltre il migliore isolamento della soluzione con iframe, che in certi ambiti può essere fondamentale.
 
 \subsection{Utilizzo del Routing Server-side}
 Il routing è un elemento fondamentale dell’architettura microfrontend, in quanto serve per uniformare la navigazione utente tra app provenienti da hostname differenti. 
@@ -82,27 +77,21 @@ Il funzionamento consiste in questi passaggi:
 
 \section{Composizione Server-side}
 Si suppone di lavorare ad un progetto microfrontend incentrato principalmente su contenuti e informazioni, senza particolari componenti logiche al suo interno.
-Un esempio di sito incentrato sulle informazioni (anche detto \emph{content-centric}) è Wikipedia, le sue caratteristiche principali sono:
+Un esempio di sito incentrato sulle informazioni, anche detto \textbf{content-centric}, è Wikipedia, le sue caratteristiche principali sono:
 \begin{itemize}
     \item Tempi brevi di caricamento delle pagine
     \item Ottimizzazione per motori di ricerca
     \item Assenza di particolari contenuti basati su un interazione continua con l'utente
 \end{itemize}
-
-Si introduce quindi la \textbf{composizione server-side}, che va incontro alle richieste di un sito content-centric come Wikipedia.
-
-La composizione dei fragment viene eseguita da un servizio che risiede nel server web, il client quindi riceve la pagina già completata.
-
-Come nel caso degli iframes, i team che producono i fragments devono 
+Si introduce quindi la \textbf{composizione server-side}, che va incontro alle richieste dei siti content-centric.
+\\La composizione dei fragment viene eseguita da un servizio che risiede nel server web, il client quindi riceve la pagina già completata.
+\\Come nel caso degli iframe, i team che producono i fragment devono 
 fornire al team che gestisce la pagina ospitante l'URL del loro codice HTML.
-
-Il team della pagina ospitante userà delle direttive 
+\\Il team della pagina ospitante userà delle direttive 
 per richiedere al server di aggiungere il codice di markup degli altri team in un preciso posto della schermata.
-
-Un esempio di servizio di composizione è la funzione \textbf{SSI} (Server-Side Includes) di \textbf{Nginx}:
+\\\\Un esempio di servizio di composizione è la funzione \textbf{SSI} (Server-Side Includes) adottata nel webserver \textbf{Nginx}.
 
 \subsection{Server-Side Includes}
-
 Nginx, il popolare web server che serve circa il 21\% dei siti internet\cite{nginx}, contiene il modulo \emph{ngx-http-ssi-module} che processa i comandi SSI.
  I comandi SSI sono istruzioni
 inserite nelle pagine HTML della pagina ospitante. Un'istruzione SSI appare nella seguente sintassi:
@@ -110,7 +99,6 @@ inserite nelle pagine HTML della pagina ospitante. Un'istruzione SSI appare nell
    \begin{center}
     \verb|<!--#include virtual="url/da/includere -->|
    \end{center}
-
 Quando il webserver legge la direttiva, effettua le seguenti operazioni:
 
 \begin{figure}[H]
@@ -123,14 +111,12 @@ Quando il webserver legge la direttiva, effettua le seguenti operazioni:
     \textbf{4:} Il client riceve la pagina completa
     }
   \end{figure}
-
-
-Le prestazioni dell'operazione di composizione sono nettamente migliorate rispetto ad iframes, 
+Le prestazioni dell'operazione di composizione sono nettamente migliorate rispetto ad iframe, 
 in quanto il client riceve la pagina già completa, effettuando un solo handshake HTML, indipendentemente dal numero
-di fragment ospitati nella pagina. Inoltre i motori di ricerca possono profilare anche il contenuto dei fragments.
+di fragment ospitati nella pagina. Inoltre i motori di ricerca possono profilare anche il contenuto dei fragment.
 
-\subsubsection{Modalità di caricamento dei fragments}
-Al contrario della soluzione con iframes, lo scorretto caricamento di un fragment può rallentare o addirittura bloccare 
+\subsubsection{Modalità di caricamento dei fragment}
+Al contrario della soluzione con iframe, lo scorretto caricamento di un fragment può rallentare o addirittura bloccare 
 il caricamento dell'intera pagina. Il webserver infatti prima di restituire la pagina aspetta di avere tutti  i suoi componenti.
 La proprietà di Nginx chiamata \emph{proxy read timeout} permette di fissare un tempo massimo per il quale il webserver 
 può aspettare un fragment.
@@ -147,15 +133,12 @@ a buon fine la richiesta.
 \verb|          <!--#include|\linebreak
 \verb|              virtual="/link/to/page"|\linebreak
 \verb|              stub="fallback" -->|\linebreak
-
-
-Quando Nginx deve scaricare più fragments, effettua i caricamenti in parallelo.
+Quando Nginx deve scaricare più fragment, effettua i caricamenti in parallelo.
 Solo quando l'ultimo fragment viene scaricato,la pagina viene composta e inviata al client.
 \\
 Il tempo di risposta dell'intera pagina è chiamato \textbf{time to first byte} (TTFB) ed è definito 
 come il tempo necessario per generare l’HTML della pagina, sommato al tempo di caricamento del fragment più lento.
-
-E' possibile anche annidare fragments, ma non è consigliato, in quanto si 
+\\E' possibile anche annidare fragment, ma non è consigliato, in quanto si 
 interrompe la parallelizzazione dei caricamenti e si rallenta la composizione della pagina.
 \begin{figure}[H]
     \centering
@@ -178,8 +161,7 @@ Esistono altre soluzioni, come quella sviluppata dalla società di fashion e-com
 L'azienda migrò infatti il loro portale dall'approccio monolitico a quello microfrontend, utilizzando una composizione
 server-side. Per via della grande dimensione del sito web, il team Zalando ha avviato il progetto Tailor, che ha poi portato ad un rilascio 
 ufficiale con licenza libera. Tailor consiste in una libreria Node.js, reperibile nel pacchetto NPM \emph{node-tailor}.
-
-Tailor riesce ad avere prestazioni migliori rispetto all'invio parziale, facendo in modo di iniziare a inviare parti di pagina al client,
+\\Tailor riesce ad avere prestazioni migliori rispetto all'invio parziale, facendo in modo di iniziare a inviare parti di pagina al client,
 ancora prima che il server abbia finito di scaricare l'intera pagina ospitante.
 
 \pagebreak
@@ -205,25 +187,21 @@ Seguendo un approccio monolitico dovremmo scegliere uno di questi framework ed e
 a tutti i team che lavorano al progetto. Al contrario, con l'approccio microfrontend, si da libertà ad ogni team
 di scegliere autonomamente la soluzione migliore e di mantenerla correttamente aggiornata.
 \\\\
-Grazie agli \textbf{web components}, i team possono realizzare dei fragments usando qualsiasi tecnologia a loro disposizione e 
+Grazie agli \textbf{web component}, i team possono realizzare dei fragment usando qualsiasi tecnologia a loro disposizione e 
 farli coesistere con il resto della pagina.
 
 
 
-\subsection{Web Components}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=30mm]{img/webcomp}
-  \end{figure}
-Gli web components consentono di creare nuovi elementi HTML personalizzati (Custom Elements), riutilizzabili e incapsulati
-da utilizzare in siti e web app \cite{webcomponents}.
-
-Custom Elements è un insieme di API Javascript che consente di definire elementi HTML personalizzati, che includono istruzioni CSS e script JS.
+\subsection{Web Component}
+Gli web component consentono di creare nuovi elementi HTML personalizzati, chiamati \textbf{Custom Element}, riutilizzabili e incapsulati
+da utilizzare in siti e web app \cite{webcomponents}.\\
+Custom Element è un insieme di API Javascript che consente di definire elementi HTML personalizzati, che includono istruzioni CSS e script JS.
 Ogni custom element è dichiarato nell' oggetto \emph{CustomElementRegistry}.
-\linebreak
-
+In questo modo è possibile ampliare la lista degli elementi HTML esistenti, creando 
+tag personalizzati e definire come il nuovo componente debba reagire ai cambiamenti.
+\\\\
 All'interno di un web component possono essere incapsulati elementi di stile e componenti logiche, senza influenzare
-la parte restante del DOM (Document Object Model), questo grazie alla \textbf{shadow DOM}:
+la parte restante del DOM (Document Object Model), questo grazie alla \textbf{shadow DOM}.
 \subsubsection{Shadow DOM}
 Sappiamo che il DOM (Document Object Model) è un albero di oggetti creato alla fine del caricamento di ogni pagina web, che 
 permette di accedere dinamicamente e aggiornare il contenuto, la struttura e lo stile di un documento.\cite{dom}
@@ -242,19 +220,19 @@ alle istruzioni di design o alle strutture valide globalmente nel resto del prog
   \end{figure}
 Questo aumenta la robustezza del microfrontend, garantendo isolamento.
 \\\\
-Un altro elemento importante che sta alla base dei web components è il concetto di \textbf{template HTML}: 
+Un altro elemento importante che sta alla base dei web component è il concetto di \textbf{template HTML}: 
 un modo per creare codice HTML non ancora visualizzato sulla pagina, che può essere istanziato una o più volte 
 durante il runtime grazie a codice javascript.
 
 
 
-\subsection{Comunicazione tra fragments}
+\subsection{Comunicazione tra fragment}
 I fragment possono aver bisogno di ricevere dalla pagina 
 ospitante delle informazioni di contesto, come ad esempio la lingua, 
 la regione geografica, o il nome dell'utente recuperata da un database.
 Gli attributi dei custom element possono fungere da mezzo di comunicazione per inviare
 informazioni dalla pagina al fragment.
-I custom elements, con i quali sono implementati gli web components, forniscono agli sviluppatori 
+I custom element, con i quali sono implementati gli web component, forniscono agli sviluppatori 
 una serie di metodi che interessano momenti del loro ciclo di vita:
 \begin{itemize}
     \item \textbf{connectedCallback}: invocato quando il custom element viene inserito nel DOM della pagina 
@@ -262,7 +240,6 @@ una serie di metodi che interessano momenti del loro ciclo di vita:
     \item \textbf{adoptedCallback}: invocato quando l'elemento viene spostato da un documento ad un altro
     \item \textbf{attributeChangedCallback}: invocato quando un qualsiasi attributo del documento cambia
 \end{itemize}
-
 Si può quindi utilizzare il metodo \emph{attributeChangedCallback} per far reagire il fragment in risposta ad un
 attributo cambiato.
 \\\\
@@ -293,10 +270,9 @@ Analizziamo adesso le diverse strategie per far comunicare due fragment ospitati
     Si basa sul meccanismo publish/subscribe.
     Vengono instaurati dei canali nei quali vengono pubblicati messaggi (\emph{publish}), 
     che riceveranno solo i fragment che si sottoscrivono a tale canale (\emph{subscribe}).
-    Questa soluzione riduce al minimo l'accoppiamento tra i vari fragments.
+    Questa soluzione riduce al minimo l'accoppiamento tra i vari fragment.
     Broadcast channel API verrà approfondito successivamente nel capitolo 4.
 \end{itemize}
-
 E' importante che le comunicazioni tra i fragment siano minime e che interessino dati semplici, in quanto
 un eccessivo accoppiamento tra due oggetti può significare un inesatto confine tra due team.
 
@@ -315,7 +291,6 @@ Si deve innanzi tutto distinguere due tipi di navigazione:
     \item \textbf{Soft navigation}: la transizione avviene lato client, in questo modo non si richiede la pagina completa,
      ma solo alcuni dati, che vengono caricati dal server tramite una API Javascript, in poche parole non avviene alcun handshake HTTP
 \end{itemize}
-
 Di conseguenza i team possono scegliere autonomamente il tipo di navigazione.
 Si può trovare una webapp con una hard navigation in tutte le pagine, anche in quelle interne di un team,
 oppure quella che viene chiamata \emph{linked SPA}, con hard navigation per passare da una pagina posseduta da un team ad un altro
@@ -325,7 +300,6 @@ e soft navigation per le pagine dello stesso team.
     \includegraphics[width=148mm]{img/navigazione}
     \caption{Due differenti approcci di transizione di pagina in un contesto microfrontend.}
   \end{figure}
-
 In entrambe queste soluzioni l'unico dato che deve essere condiviso tra i team, il cosiddetto contratto, consiste 
 unicamente nell' URL delle pagine. Questo garantisce una grande autonomia tra team e un alto disaccoppiamento.
 \\\\
@@ -343,21 +317,19 @@ L' Application Shell, o App Shell, è un app che sta alla base di tutti i microf
 richieste e di visualizzare nella pagina HTML il microfrontend giusto. Di solito risiede nella pagina principale (index.html) ed essendo
 condivisa con tutti gli altri elementi deve essere mantenuta il più semplice possibile.
 Di solito vengono incluse nell'app shell le informazioni di contesto o di autenticazione, perchè utili a tutti i microfrontend.
-
+\\
 Un team sarà responsabile della sua manutenzione e dovrà essere a conoscenza del nome dei custom element con i quali gli altri team forniscono
 le loro web app.
 Inoltre l'app shell, per instradare correttamente tutti gli indirizzi, deve essere a conoscenza degli url di tutte le pagine di ogni team.
 Questo obbgliga i team a notificare l'app shell di qualsiasi aggiunta o rimozione di pagine nel loro progetto.
 Con l'app shell la nostra app prende il nome di \textbf{Unified SPA}.
-
-Con il \textbf{routing a due livelli} si porta l'app shell in una posizione più neutrale e si diminuisce l'accoppiamento tra questa e gli altri microfrontend.
+\\Con il \textbf{routing a due livelli} si porta l'app shell in una posizione più neutrale e si diminuisce l'accoppiamento tra questa e gli altri microfrontend.
 \subsubsection{Routing a due livelli}
 \begin{figure}[H]
     \centering
     \includegraphics[width=148mm]{img/routingduelivelli}
     \caption{Con il routing a due livelli l'app shell è più alleggerita e richiede meno modifiche.}
   \end{figure}
-
 Risolviamo il problema facendo instradare le pagine all'app shell soltanto verso il team di provenienza 
 e non verso la precisa pagina.
 Ogni team avrà un router interno che assegnerà all'url in arrivo la pagina interna corrispondente.
@@ -366,10 +338,8 @@ Per identificare chiaramente il team, si utilizza un prefisso nell'URL.
 In questo modo l'app shell viene cambiata solo se si aggiunge un nuovo team o si vuole cambiare il nome dei prefissi.
 
 
-
 \pagebreak
 \section{Universal Rendering}
-
 Dopo aver visto come comporre microfrontend con metodologie server-side e client-side, vediamo come combinare queste due tecniche
 per capire quali vantaggi possono apportare ad un progetto web.
 Il concetto che sta alla base dell' universal rendering è il seguente:\\
@@ -384,8 +354,7 @@ il che porterebbe ad un mancato guadagno per l'azienda.
 \\\\
 Una possibile soluzione è utilizzare la Server Side Integration per creare il bottone, prima di consegnare la pagina al client, in questo modo l'elemento 
 verrà subito visualizzato. Successivamente il client attuerà la composizione lato client e il bottone sarà completamente stilizzato.
-
-In questo modo l'utente può comprare il prodotto appena la pagina viene scaricata sul browser.
+\\In questo modo l'utente può comprare il prodotto appena la pagina viene scaricata sul browser.
 \pagebreak
 Vediamo i casi in cui è utile la Universal Rendering: \cite{angularUniversal}
 \begin{itemize}
@@ -397,10 +366,8 @@ Vediamo i casi in cui è utile la Universal Rendering: \cite{angularUniversal}
     con la composizione client-side diventa anche completamente interattiva. Questo è fondamentale per le landing page, che hanno l'obiettivo di convertire il più 
     possibile le visite in clienti.
 \end{itemize}
-
 In conclusione universal rendering è la soluzione più complessa di composizione,
  ma anche l'unica che riesce a unire la velocità di caricamento delle pagine server-rendered
 e l'estrema reattività all'input che contraddistingue le pagine client-rendered.
-
-Una SPA che ha elementi di server side rendering viene chiamata \emph{universal unified SPA}.
+\\\\Una SPA che ha elementi di server side rendering viene chiamata \emph{universal unified SPA}.
 

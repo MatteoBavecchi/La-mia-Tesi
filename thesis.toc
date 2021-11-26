@@ -7,18 +7,18 @@
 \contentsline {section}{\numberline {1.2}Svantaggi}{3}{section.1.2}%
 \contentsline {chapter}{\numberline {2}Composizione di microfrontend}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Collegamento tra pagine con links}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Composizione tramite iframes}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.2}Composizione tramite iframe}{6}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Composizione con Ajax}{7}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Utilizzo del Routing Server-side}{8}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}Composizione Server-side}{9}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Server-Side Includes}{9}{subsection.2.3.1}%
-\contentsline {subsubsection}{Modalità di caricamento dei fragments}{11}{section*.4}%
+\contentsline {subsubsection}{Modalità di caricamento dei fragment}{11}{section*.4}%
 \contentsline {subsubsection}{Caricamento differito}{12}{section*.5}%
 \contentsline {subsubsection}{Alternative a SSI}{12}{section*.6}%
 \contentsline {section}{\numberline {2.4}Composizione Client-side}{14}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Web Components}{15}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.1}Web Component}{15}{subsection.2.4.1}%
 \contentsline {subsubsection}{Shadow DOM}{16}{section*.7}%
-\contentsline {subsection}{\numberline {2.4.2}Comunicazione tra fragments}{17}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.2}Comunicazione tra fragment}{17}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Routing Client-Side }{20}{subsection.2.4.3}%
 \contentsline {subsubsection}{Application Shell}{22}{section*.8}%
 \contentsline {subsubsection}{Routing a due livelli}{23}{section*.9}%
@@ -29,15 +29,14 @@
 \contentsline {subsection}{\numberline {3.1.2}Referencing con soluzioni server-rendered}{27}{subsection.3.1.2}%
 \contentsline {subsection}{\numberline {3.1.3}I vantaggi di HTTP/2}{27}{subsection.3.1.3}%
 \contentsline {section}{\numberline {3.2}Design system}{29}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}sviluppo di un design system}{30}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.1}Sviluppo di un design system}{30}{subsection.3.2.1}%
 \contentsline {chapter}{\numberline {4}Caso di studio: Leonardo SPA}{32}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduzione}{32}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}La sala di controllo: la piattaforma Leonardo X2030}{33}{subsection.4.1.1}%
-\contentsline {subsubsection}{Scenario}{33}{section*.10}%
-\contentsline {subsubsection}{Il ruolo chiave della tecnologia:}{34}{section*.11}%
-\contentsline {subsection}{\numberline {4.1.2}La soluzione di Leonardo: la piattaforma X2030}{36}{subsection.4.1.2}%
-\contentsline {subsubsection}{Architettura di X2030}{37}{section*.12}%
-\contentsline {subsubsection}{Casi d'uso}{38}{section*.13}%
+\contentsline {section}{\numberline {4.1}La sala di controllo}{32}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Scenario}{33}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Il ruolo chiave della tecnologia:}{34}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}La soluzione di Leonardo: la piattaforma X2030}{35}{subsection.4.1.3}%
+\contentsline {subsubsection}{Architettura di X2030}{36}{section*.10}%
+\contentsline {subsubsection}{Casi d'uso}{37}{section*.11}%
 \contentsline {section}{\numberline {4.2}Progettazione del componente}{40}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Scelta dell'architettura microfrontend}{41}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Class diagram}{43}{subsection.4.2.2}%

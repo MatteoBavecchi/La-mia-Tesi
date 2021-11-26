@@ -186,8 +186,8 @@
     {\small Tesi di Laurea Triennale in}
     \@titolocorso\medskip\\
     \vfill
-    {\Large \bf \vspace{2cm} \textsc{\@title} \par}
-    \vspace{2cm}
+    {\Large \bf \vspace{1.8cm} \textsc{\@title} \par}
+    \vspace{1.8cm}
 
 \par
   \end{center}\par
