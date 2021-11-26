@@ -7,8 +7,8 @@
 L'obiettivo della tecnologia microfrontend è quello di superare l'approccio monolitico, che vede
 lo sviluppo di applicazioni web suddiviso in due team: backend e frontend.
 
-Si fa questo vedendo un'applicazione web come un insieme
-di elementi, chiamati fragment o microfrontend, molto disaccoppiati tra di loro
+Possiamo considerare un'applicazione web come un insieme
+di elementi, chiamati fragment o microfrontend, disaccoppiati tra di loro
 e con la più bassa granuralità, ovvero con la funzionalità più minimale possibile.
 
 Ogni microfrontend viene sviluppato da un team, che potrà lavorare con autonomia. 
@@ -30,22 +30,20 @@ Nell’approccio orizzontale quando si vuole sviluppare una nuova funzionalità 
 lavoro di più team. Con microfrontend,
   tutte le persone coinvolte nell’implementazione di una nuova funzionalità sono nello 
   stesso team, rendendo il lavoro più veloce ed efficiente. 
-    \item \textbf{Abbandono del frontend monolitico:}
+    \item \textbf{Verticalizzazione dei team:}
 Con microfrontend le applicazioni, incluse il frontend, si dividono in sistemi verticali
  più piccoli. Ogni team controlla la sua piccola parte di frontend e di backend.
     \item \textbf{Adottare diverse tecnologie:}
 Strumenti di sviluppo e framework evolvono continuamente. Ogni team deve essere in grado di scegliere
 le proprie tecnologie autonomamente. Ci sono alcune grandi aziende
  come Github, che hanno
- impiegato molto tempo per eliminare alcune dipendenze ormai obsolete dal loro codice ( nel caso di Github si trattava di una versione di JQuery).
+ impiegato molto tempo per eliminare alcune dipendenze ormai obsolete dal loro codice (nel caso di Github si trattava di una versione di JQuery).
   Con l’approccio microfrontend questi cambiamenti sono più rapidi e possono essere
    fatti modularmente.
 
 
 \item \textbf{Indipendenza:}
-I progetti di ogni team sono autonomi, ovvero non hanno dipendenze condivise tra di loro.
-Questo come già detto precedentemente porta ad una grande autonomia.
-
+I progetti di ogni team sono autonomi, ovvero non hanno dipendenze condivise tra di loro.\\
 L’indipendenza però porta sicuramente a costi aggiuntivi. Si potrebbe pensare che sia
  più semplice quindi di sviluppare un unico progetto, e assegnare parti di questo a team diversi. 
  Il problema sta nel fatto che la comunicazione tra i vari team è costosa e porta molti ritardi.
